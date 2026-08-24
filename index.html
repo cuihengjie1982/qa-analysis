@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="按组织拆解的质检不通过问题分析与整体 TOP10">
+  <meta name="robots" content="noindex, nofollow">
+  <title>组织质检不通过分析｜2026/08/12–2026/08/30</title>
+  <style>
+    :root {
+      --ink: #14263a; --muted: #617083; --paper: #f4f7fa; --panel: #fff;
+      --line: #d8e1ea; --navy: #103b66; --blue: #1261c9; --blue-soft: #e9f2ff;
+      --teal: #087f7a; --teal-soft: #e4f5f3; --green: #16865a; --green-soft: #e8f7ef;
+      --amber: #a85f00; --amber-soft: #fff3d9; --red: #b6323d; --red-soft: #fff0f1;
+      --purple: #6852c7; --purple-soft: #f1efff; --shadow: 0 18px 50px rgba(24, 52, 78, .10);
+      --radius: 18px; --sans: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+      --display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; padding: 14px; color: var(--ink); background: #e8eef3; font-family: var(--sans); line-height: 1.55; }
+    a { color: inherit; } button, input { font: inherit; }
+    .board { width: min(1540px, calc(100vw - 28px)); margin: 0 auto; min-height: calc(100vh - 28px); padding: 24px 28px 20px; border: 1px solid #cfd9e2; border-radius: 28px; background: var(--paper); box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .board::before { content: ""; position: absolute; right: -130px; top: -155px; width: 430px; height: 430px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, rgba(79, 166, 225, .32), rgba(18, 97, 201, .04) 62%, transparent 63%); pointer-events: none; }
+    .topbar { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 0 14px; border-bottom: 1px solid var(--line); background: rgba(244,247,250,.92); backdrop-filter: blur(14px); }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: .01em; }
+    .brand-mark { width: 28px; height: 28px; border: 7px solid var(--blue); border-radius: 50%; position: relative; flex: none; }
+    .brand-mark::after { content: ""; position: absolute; right: -7px; top: 3px; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); }
+    .version { color: var(--muted); font-size: 11px; font-weight: 700; }
+    .actions { display: flex; gap: 8px; align-items: center; }
+    .actions a, .print-btn { border: 1px solid var(--line); border-radius: 9px; padding: 7px 11px; color: var(--navy); background: var(--panel); text-decoration: none; font-size: 12px; font-weight: 800; cursor: pointer; }
+    .actions a:hover, .print-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .hero { display: grid; grid-template-columns: 1.22fr .78fr; gap: 34px; align-items: end; padding: 48px 0 28px; position: relative; z-index: 1; }
+    .eyebrow { margin-bottom: 6px; color: var(--blue); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; font-weight: 900; }
+    h1, h2, h3, p { margin-top: 0; } h1 { margin: 0 0 13px; font: 900 clamp(34px, 4.5vw, 62px)/1.03 var(--display); letter-spacing: -.02em; }
+    .subtitle { margin: 0; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .hero-note { max-width: 720px; margin: 18px 0 0; color: var(--muted); font-size: 16px; }
+    .hero-note strong { color: var(--navy); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 17px; }
+    .hero-tag { padding: 4px 9px; border: 1px solid #c9dced; border-radius: 999px; color: var(--navy); background: var(--blue-soft); font-size: 11px; font-weight: 900; }
+    .scope { padding: 18px 20px; border-radius: 19px; color: #fff; background: var(--navy); box-shadow: 0 16px 30px rgba(16,59,102,.16); }
+    .scope-line { display: flex; align-items: center; gap: 13px; }
+    .scope-num { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 17px; color: var(--navy); background: #93e3cb; font-size: 20px; font-weight: 950; }
+    .scope b { display: block; margin-bottom: 3px; font-size: 15px; } .scope span { color: #d6e7f7; font-size: 11px; }
+    .scope-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.18); }
+    .scope-meta b { margin-bottom: 2px; color: #fff; font-size: 13px; } .scope-meta span { font-size: 10px; }
+    .metrics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; position: relative; z-index: 1; }
+    .metric { min-width: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); }
+    .metric strong { display: block; color: var(--blue); font-size: clamp(20px, 2vw, 29px); line-height: 1; letter-spacing: -.045em; } .metric span { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; font-weight: 800; }
+    .metric.accent { border-color: var(--navy); background: var(--navy); } .metric.accent strong { color: #93e3cb; } .metric.accent span { color: #d8e8f7; }
+    .metric.warn strong { color: var(--red); } .metric.good strong { color: var(--green); }
+    main { position: relative; z-index: 1; padding-top: 26px; } section { scroll-margin-top: 86px; margin-bottom: 30px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 13px; } .section-kicker { color: var(--teal); font-size: 11px; letter-spacing: .12em; font-weight: 950; } h2 { margin: 0; font-size: clamp(23px, 3vw, 34px); line-height: 1.15; letter-spacing: -.02em; } .section-note { max-width: 520px; margin: 0; color: var(--muted); font-size: 12px; }
+    .insight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .insight { min-height: 146px; padding: 15px; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: var(--radius); background: var(--panel); }
+    .insight.red { border-top-color: var(--red); background: #fff8f8; } .insight.teal { border-top-color: var(--teal); } .insight.amber { border-top-color: var(--amber); background: #fffbf2; } .insight.purple { border-top-color: var(--purple); background: #fbfaff; }
+    .insight-label { display: flex; justify-content: space-between; align-items: start; gap: 8px; color: var(--muted); font-size: 10px; font-weight: 900; } .insight-label span { padding: 3px 7px; border-radius: 6px; color: var(--blue); background: var(--blue-soft); }
+    .insight.red .insight-label span { color: var(--red); background: var(--red-soft); } .insight.amber .insight-label span { color: var(--amber); background: var(--amber-soft); } .insight.purple .insight-label span { color: var(--purple); background: var(--purple-soft); }
+    .insight strong { display: block; margin-top: 10px; color: var(--navy); font-size: 25px; line-height: 1.1; } .insight p { margin: 7px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; font-weight: 700; } .insight p b { color: var(--ink); }
+    .top-panel, .org-panel, .method-panel { padding: 16px 17px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .top-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 13px; }
+    .top-list { display: grid; gap: 4px; } .top-row { display: grid; grid-template-columns: 32px 1fr 60px; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid #edf1f4; } .top-row:last-child { border-bottom: 0; }
+    .top-rank { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; color: var(--blue); background: var(--blue-soft); font-size: 11px; font-weight: 950; } .top-row:nth-child(-n+3) .top-rank { color: #fff; background: var(--navy); }
+    .top-title { display: flex; align-items: center; gap: 7px; min-width: 0; } .top-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: 13px; font-weight: 900; } .code { display: inline-flex; align-items: center; padding: 3px 6px; border-radius: 5px; font-size: 9px; font-style: normal; font-weight: 950; letter-spacing: .03em; white-space: nowrap; } .code-dce { color: var(--blue); background: var(--blue-soft); } .code-pce { color: var(--amber); background: var(--amber-soft); } .code-cce { color: var(--red); background: var(--red-soft); }
+    .bar-track { height: 6px; margin-top: 6px; overflow: hidden; border-radius: 99px; background: #edf1f4; } .bar-fill { display: block; height: 100%; min-width: 2px; border-radius: inherit; } .fill-dce { background: var(--blue); } .fill-pce { background: var(--amber); } .fill-cce { background: var(--red); } .top-sub { margin-top: 4px; color: var(--muted); font-size: 9px; font-weight: 700; } .top-count { color: var(--navy); text-align: right; font-size: 18px; } 
+    .class-summary { padding: 8px 4px; } .class-summary h3 { margin: 0 0 14px; font-size: 16px; } .class-summary-row { display: grid; grid-template-columns: 42px 1fr; gap: 9px; align-items: center; margin: 12px 0; } .class-summary-name { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; } .class-summary-name b { color: var(--ink); } .class-summary-name span { color: var(--muted); font-weight: 800; white-space: nowrap; } .class-summary-track { grid-column: 2; height: 8px; overflow: hidden; border-radius: 99px; background: #edf1f4; } .class-summary-track span { display: block; height: 100%; border-radius: inherit; } .class-summary-note { margin: 19px 0 0; padding: 11px; border-left: 3px solid var(--amber); color: #7a4a00; background: var(--amber-soft); border-radius: 0 8px 8px 0; font-size: 10px; line-height: 1.65; font-weight: 700; }
+    .org-tools { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 7px; } .org-search { width: 210px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; outline: none; color: var(--ink); background: #fff; font-size: 11px; } .org-search:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(18,97,201,.12); } .filter-btn { padding: 6px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: #fff; font-size: 10px; font-weight: 900; cursor: pointer; } .filter-btn.active, .filter-btn:hover { color: #fff; border-color: var(--navy); background: var(--navy); }
+    .table-wrap { overflow-x: auto; margin-top: 11px; } table { width: 100%; min-width: 1120px; border-collapse: separate; border-spacing: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; font-size: 10px; table-layout: fixed; } th { padding: 8px 6px; color: #fff; background: var(--navy); text-align: center; font-size: 9px; white-space: nowrap; } td { padding: 8px 6px; border-bottom: 1px solid #edf1f4; color: #30455a; text-align: center; vertical-align: middle; font-weight: 700; } tr:last-child td { border-bottom: 0; } tr.risk-row td { background: #fff7f7; } tr.unassigned-row td { background: #fffaf0; } .rank-cell { width: 4%; color: var(--muted); font-weight: 950; } .org-cell { width: 21%; text-align: left; } .org-cell strong { display: block; overflow: hidden; color: var(--ink); text-overflow: ellipsis; white-space: nowrap; } .org-cell small, td small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; font-weight: 700; } .class-stack { display: flex; height: 8px; overflow: hidden; min-width: 125px; margin-bottom: 5px; border-radius: 99px; background: #edf1f4; } .class-stack span { display: block; height: 100%; } .stack-dce { background: var(--blue); } .stack-pce { background: var(--amber); } .stack-cce { background: var(--red); } .class-pill { display: inline-flex; margin: 2px 2px 0 0; padding: 2px 4px; border-radius: 4px; font-size: 8px; font-weight: 950; } .class-pill.dce { color: var(--blue); background: var(--blue-soft); } .class-pill.pce { color: var(--amber); background: var(--amber-soft); } .class-pill.cce { color: var(--red); background: var(--red-soft); } .reasons-cell { width: 27%; text-align: left; } .reason-mini { display: block; overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; font-size: 9px; line-height: 1.55; } .reason-mini b { color: var(--ink); } .action-cell { width: 22%; text-align: left; color: var(--muted); font-size: 9px; line-height: 1.5; } .priority-dot { display: inline-block; width: 7px; height: 7px; margin-right: 4px; border-radius: 50%; vertical-align: 1px; } .dot-dce { background: var(--blue); } .dot-pce { background: var(--amber); } .dot-cce { background: var(--red); }
+    .no-org-results { display: none; margin-top: 10px; padding: 13px; border: 1px dashed #a8b8c8; border-radius: 9px; color: var(--muted); text-align: center; font-size: 11px; } .no-org-results.show { display: block; }
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; } .method-card { padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; } .method-card h3 { margin: 0 0 5px; font-size: 13px; } .method-card p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.7; font-weight: 700; } .method-card strong { color: var(--ink); } .source-line { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 9px; font-weight: 700; }
+    footer { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; font-weight: 700; }
+    @media (max-width: 1100px) { body { padding: 0; background: var(--paper); } .board { width: 100%; min-height: 100vh; border: 0; border-radius: 0; box-shadow: none; } .hero { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(3, 1fr); } .top-layout { grid-template-columns: 1fr; } .insight-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 650px) { .board { padding: 16px 13px; } .topbar { align-items: flex-start; } .actions a { display: none; } .version { display: block; } .hero { padding-top: 34px; } h1 { font-size: 42px; } .metrics { grid-template-columns: repeat(2, 1fr); } .insight-grid, .method-grid { grid-template-columns: 1fr; } .section-head { display: block; } .section-note { margin-top: 7px; } .org-tools { justify-content: flex-start; margin-top: 10px; } .org-search { width: 100%; } footer { display: block; } footer span + span { display: block; margin-top: 6px; } }
+    @media print { body { padding: 0; background: #fff; } .board { width: 100%; min-height: 0; padding: 12px; border: 0; border-radius: 0; box-shadow: none; } .topbar { position: static; } .actions, .org-tools { display: none; } .top-panel, .org-panel, .method-panel { break-inside: avoid; box-shadow: none; } .table-wrap { overflow: visible; } table { min-width: 0; font-size: 7px; } th { font-size: 7px; } td { padding: 5px 3px; } .reason-mini, .action-cell { font-size: 7px; } }
+    </style>
+</head>
+<body>
+  <main class="board">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>质检不通过分析 <span class="version">组织诊断台 · DCE / PCE / CCE</span></span></div>
+      <div class="actions"><a href="#top10">整体 TOP10</a><a href="#organizations">按组织</a><button class="print-btn" id="printBtn" type="button">打印报告</button></div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Collection &amp; QC Report · Failure Analysis</div>
+        <h1>组织质检<br>不通过分析</h1>
+        <p class="subtitle">2026/08/12 — 2026/08/30｜按“上级用户 ID”归并组织｜数据源：质检报表当前条件导出</p>
+        <p class="hero-note">这份报告回答两个问题：<strong>整体最常见的不通过问题是什么？每个组织应该先改哪一类问题？</strong></p>
+        <div class="hero-tags"><span class="hero-tag">多原因记录按问题项拆分</span><span class="hero-tag">空上级账号单列</span><span class="hero-tag">组织表不计算不通过率</span></div>
+      </div>
+      <aside class="scope" aria-label="分析范围">
+        <div class="scope-line"><div class="scope-num">TOP10</div><div><b>整体问题排行</b><span>按不通过原因出现次数排序</span></div></div>
+        <div class="scope-meta"><div><b>17 个组织</b><span>含未归属组织</span></div><div><b>2,548 条</b><span>不通过记录</span></div></div>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="总体指标">
+      <div class="metric accent"><strong>10,593</strong><span>总质检条数</span></div>
+      <div class="metric warn"><strong>2,548</strong><span>不通过记录条数</span></div>
+      <div class="metric"><strong>2,780</strong><span>不通过问题项数</span></div>
+      <div class="metric good"><strong>75.95%</strong><span>质检通过率</span></div>
+      <div class="metric warn"><strong>24.05%</strong><span>质检不通过率</span></div>
+      <div class="metric"><strong>248.97h</strong><span>不通过质检时长</span></div>
+    </section>
+
+    <main>
+      <section id="overview">
+        <div class="section-head"><div><div class="section-kicker">00 / 先看结论</div><h2>问题集中在哪里？</h2></div><p class="section-note">组织排名按不通过记录条数；问题排名按拆分后的问题项次数。一个记录包含多个原因时，会分别计入对应问题项。</p></div>
+        <div class="insight-grid">
+          <article class="insight red"><div class="insight-label">主要合规红线 <span>CCE</span></div><strong>899 次</strong><p><b>场景与画面-内容合规-他人</b> 占全部问题项 32.3%，是当前最需要在录前清场和试拍环节拦截的问题。</p></article>
+          <article class="insight teal"><div class="insight-label">组织集中度 <span>TOP 3</span></div><strong>64.4%</strong><p>前三个有明确上级 ID 的组织贡献 1,640 条不通过记录，优先复盘头部组织能最快降低总体返工。</p></article>
+          <article class="insight amber"><div class="insight-label">账号治理缺口 <span>待补齐</span></div><strong>254 条</strong><p>不通过记录缺少上级组织归属，占全部不通过记录 10.0%；建议补齐一级账号，保证问题可追溯。</p></article>
+          <article class="insight purple"><div class="insight-label">错误类型构成 <span>问题项</span></div><strong>DCE 45.7%</strong><p>数据内容错误为第一大类；另有 CCE 35.5%、PCE 18.8%。先隔离 CCE，再做内容和流程复训。</p></article>
+        </div>
+      </section>
+
+      <section id="top10">
+        <div class="section-head"><div><div class="section-kicker">01 / OVERALL TOP10</div><h2>整体不通过问题 TOP10</h2></div><p class="section-note">总问题项 2,780 个；条形长度以第 1 名为基准，标签为当前 DCE / PCE / CCE 归属。</p></div>
+        <div class="top-layout">
+          <div class="top-panel"><div class="top-list"><div class="top-row">
+          <div class="top-rank">01</div>
+          <div class="top-reason"><div class="top-title"><span>场景与画面-内容合规-他人</span><em class="code code-cce">CCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-cce" style="width:100.00%"></span></div>
+            <div class="top-sub">影响 899 条不通过记录 · 占问题项 32.3% </div>
+          </div>
+          <strong class="top-count">899</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">02</div>
+          <div class="top-reason"><div class="top-title"><span>任务与交互-任务类型与时长</span><em class="code code-pce">PCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-pce" style="width:46.50%"></span></div>
+            <div class="top-sub">影响 418 条不通过记录 · 占问题项 15.0% </div>
+          </div>
+          <strong class="top-count">418</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">03</div>
+          <div class="top-reason"><div class="top-title"><span>手部与物体-双手动作协调</span><em class="code code-dce">DCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-dce" style="width:37.82%"></span></div>
+            <div class="top-sub">影响 340 条不通过记录 · 占问题项 12.2% </div>
+          </div>
+          <strong class="top-count">340</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">04</div>
+          <div class="top-reason"><div class="top-title"><span>任务与交互-生产价值</span><em class="code code-dce">DCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-dce" style="width:35.60%"></span></div>
+            <div class="top-sub">影响 320 条不通过记录 · 占问题项 11.5% </div>
+          </div>
+          <strong class="top-count">320</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">05</div>
+          <div class="top-reason"><div class="top-title"><span>任务与交互-任务意图明确</span><em class="code code-dce">DCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-dce" style="width:14.57%"></span></div>
+            <div class="top-sub">影响 131 条不通过记录 · 占问题项 4.7% </div>
+          </div>
+          <strong class="top-count">131</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">06</div>
+          <div class="top-reason"><div class="top-title"><span>任务与交互-重复动作时长</span><em class="code code-dce">DCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-dce" style="width:13.24%"></span></div>
+            <div class="top-sub">影响 119 条不通过记录 · 占问题项 4.3% </div>
+          </div>
+          <strong class="top-count">119</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">07</div>
+          <div class="top-reason"><div class="top-title"><span>场景与画面-内容合规-敏感信息</span><em class="code code-cce">CCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-cce" style="width:9.12%"></span></div>
+            <div class="top-sub">影响 82 条不通过记录 · 占问题项 2.9% </div>
+          </div>
+          <strong class="top-count">82</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">08</div>
+          <div class="top-reason"><div class="top-title"><span>打标检查-场景</span><em class="code code-pce">PCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-pce" style="width:7.23%"></span></div>
+            <div class="top-sub">影响 65 条不通过记录 · 占问题项 2.3% </div>
+          </div>
+          <strong class="top-count">65</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">09</div>
+          <div class="top-reason"><div class="top-title"><span>场景与画面-视角与画幅</span><em class="code code-dce">DCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-dce" style="width:6.23%"></span></div>
+            <div class="top-sub">影响 56 条不通过记录 · 占问题项 2.0% </div>
+          </div>
+          <strong class="top-count">56</strong>
+        </div>
+<div class="top-row">
+          <div class="top-rank">10</div>
+          <div class="top-reason"><div class="top-title"><span>场景与画面-画面亮度</span><em class="code code-dce">DCE</em></div>
+            <div class="bar-track"><span class="bar-fill fill-dce" style="width:5.67%"></span></div>
+            <div class="top-sub">影响 51 条不通过记录 · 占问题项 1.8% </div>
+          </div>
+          <strong class="top-count">51</strong>
+        </div></div></div>
+          <aside class="top-panel class-summary"><h3>DCE / PCE / CCE 构成</h3><div class="class-summary-row"><span class="code code-dce">DCE</span><div class="class-summary-name"><b>数据内容错误</b><span>45.7% · 1,270 个问题项</span></div><div class="class-summary-track"><span class="fill-dce" style="width:45.68%"></span></div></div>
+<div class="class-summary-row"><span class="code code-pce">PCE</span><div class="class-summary-name"><b>流程 / 项目错误</b><span>18.8% · 524 个问题项</span></div><div class="class-summary-track"><span class="fill-pce" style="width:18.85%"></span></div></div>
+<div class="class-summary-row"><span class="code code-cce">CCE</span><div class="class-summary-name"><b>合规 / 安全红线</b><span>35.5% · 986 个问题项</span></div><div class="class-summary-track"><span class="fill-cce" style="width:35.47%"></span></div></div><p class="class-summary-note">处置顺序建议：<strong>CCE 先隔离</strong>（合规 / 安全红线）→ DCE 做采集动作和画面复训 → PCE 修正任务卡、打标和流程执行。</p></aside>
+        </div>
+      </section>
+
+      <section id="organizations">
+        <div class="section-head"><div><div class="section-kicker">02 / ORGANIZATION VIEW</div><h2>按组织拆解不通过</h2></div><div class="org-tools"><input id="orgSearch" class="org-search" type="search" placeholder="搜索组织、ID或问题…" autocomplete="off"><button class="filter-btn active" type="button" data-class-filter="all">全部</button><button class="filter-btn" type="button" data-class-filter="DCE">DCE 主导</button><button class="filter-btn" type="button" data-class-filter="PCE">PCE 主导</button><button class="filter-btn" type="button" data-class-filter="CCE">CCE 主导</button></div></div>
+        <div class="org-panel"><div class="table-wrap"><table id="orgTable"><colgroup><col style="width:4%"><col style="width:21%"><col style="width:10%"><col style="width:10%"><col style="width:18%"><col style="width:25%"><col style="width:22%"></colgroup><thead><tr><th>#</th><th>组织 / 一级账号（按 ID 合并）</th><th>不通过记录</th><th>问题项</th><th>错误类型构成</th><th>组织 TOP3 问题</th><th>优先处置建议</th></tr></thead><tbody><tr class="" data-search="id 428 · 供应商F-人员7 供应商F-人员7 场景与画面-内容合规-他人" data-class="DCE" data-records="919">
+          <td class="rank-cell">1</td>
+          <td class="org-cell"><strong>ID 428 · 供应商F-人员7</strong><small>供应商F-人员7</small></td>
+          <td><b>919</b><small>36.1% of failed records</small></td>
+          <td><b>1,005</b><small>36.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:53.23%"></span><span class="stack-pce" style="width:22.79%"></span><span class="stack-cce" style="width:23.98%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 535</span><span class="class-pill pce" title="流程 / 项目错误">PCE 229</span><span class="class-pill cce" title="合规 / 安全红线">CCE 241</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>211</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>183</b></span><span class="reason-mini" title="任务与交互-生产价值">任务与交互-生产价值 <b>138</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="risk-row" data-search="id 433 · 人员8总账号 人员8总账号 / 供应商E-人员8 场景与画面-内容合规-他人" data-class="CCE" data-records="413">
+          <td class="rank-cell">2</td>
+          <td class="org-cell"><strong>ID 433 · 人员8总账号</strong><small>人员8总账号 / 供应商E-人员8</small></td>
+          <td><b>413</b><small>16.2% of failed records</small></td>
+          <td><b>451</b><small>16.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:32.59%"></span><span class="stack-pce" style="width:20.62%"></span><span class="stack-cce" style="width:46.78%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 147</span><span class="class-pill pce" title="流程 / 项目错误">PCE 93</span><span class="class-pill cce" title="合规 / 安全红线">CCE 211</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>193</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>63</b></span><span class="reason-mini" title="手部与物体-双手动作协调">手部与物体-双手动作协调 <b>36</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="" data-search="id 511 · 用户864555 用户864555 / 供应商G 场景与画面-内容合规-他人" data-class="DCE" data-records="308">
+          <td class="rank-cell">3</td>
+          <td class="org-cell"><strong>ID 511 · 用户864555</strong><small>用户864555 / 供应商G</small></td>
+          <td><b>308</b><small>12.1% of failed records</small></td>
+          <td><b>332</b><small>11.9% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:62.05%"></span><span class="stack-pce" style="width:8.13%"></span><span class="stack-cce" style="width:29.82%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 206</span><span class="class-pill pce" title="流程 / 项目错误">PCE 27</span><span class="class-pill cce" title="合规 / 安全红线">CCE 99</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>87</b></span><span class="reason-mini" title="任务与交互-生产价值">任务与交互-生产价值 <b>80</b></span><span class="reason-mini" title="手部与物体-双手动作协调">手部与物体-双手动作协调 <b>66</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="unassigned-row" data-search="未归属组织 未填写上级用户 id / 昵称 场景与画面-内容合规-他人" data-class="DCE" data-records="254">
+          <td class="rank-cell">4</td>
+          <td class="org-cell"><strong>未归属组织</strong><small>未填写上级用户 ID / 昵称</small></td>
+          <td><b>254</b><small>10.0% of failed records</small></td>
+          <td><b>284</b><small>10.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:44.37%"></span><span class="stack-pce" style="width:24.65%"></span><span class="stack-cce" style="width:30.99%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 126</span><span class="class-pill pce" title="流程 / 项目错误">PCE 70</span><span class="class-pill cce" title="合规 / 安全红线">CCE 88</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>81</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>61</b></span><span class="reason-mini" title="手部与物体-双手动作协调">手部与物体-双手动作协调 <b>42</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>补齐上级账号归属，先解决数据可追溯性。</td>
+        </tr>
+<tr class="risk-row" data-search="id 356 · 用户719557 用户719557 / 供应商C-人员2 场景与画面-内容合规-他人" data-class="CCE" data-records="162">
+          <td class="rank-cell">5</td>
+          <td class="org-cell"><strong>ID 356 · 用户719557</strong><small>用户719557 / 供应商C-人员2</small></td>
+          <td><b>162</b><small>6.4% of failed records</small></td>
+          <td><b>176</b><small>6.3% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:27.27%"></span><span class="stack-pce" style="width:11.36%"></span><span class="stack-cce" style="width:61.36%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 48</span><span class="class-pill pce" title="流程 / 项目错误">PCE 20</span><span class="class-pill cce" title="合规 / 安全红线">CCE 108</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>105</b></span><span class="reason-mini" title="任务与交互-生产价值">任务与交互-生产价值 <b>17</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>16</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="risk-row" data-search="id 452 · 供应商G-人员9 供应商G-人员9 / 用户377036 场景与画面-内容合规-他人" data-class="DCE" data-records="114">
+          <td class="rank-cell">6</td>
+          <td class="org-cell"><strong>ID 452 · 供应商G-人员9</strong><small>供应商G-人员9 / 用户377036</small></td>
+          <td><b>114</b><small>4.5% of failed records</small></td>
+          <td><b>125</b><small>4.5% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:54.40%"></span><span class="stack-pce" style="width:8.00%"></span><span class="stack-cce" style="width:37.60%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 68</span><span class="class-pill pce" title="流程 / 项目错误">PCE 10</span><span class="class-pill cce" title="合规 / 安全红线">CCE 47</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>44</b></span><span class="reason-mini" title="手部与物体-双手动作协调">手部与物体-双手动作协调 <b>30</b></span><span class="reason-mini" title="任务与交互-生产价值">任务与交互-生产价值 <b>12</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="risk-row" data-search="id 354 · 供应商B 供应商B 场景与画面-内容合规-他人" data-class="CCE" data-records="109">
+          <td class="rank-cell">7</td>
+          <td class="org-cell"><strong>ID 354 · 供应商B</strong><small>供应商B</small></td>
+          <td><b>109</b><small>4.3% of failed records</small></td>
+          <td><b>120</b><small>4.3% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:25.83%"></span><span class="stack-pce" style="width:20.00%"></span><span class="stack-cce" style="width:54.17%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 31</span><span class="class-pill pce" title="流程 / 项目错误">PCE 24</span><span class="class-pill cce" title="合规 / 安全红线">CCE 65</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>62</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>20</b></span><span class="reason-mini" title="手部与物体-双手动作协调">手部与物体-双手动作协调 <b>9</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="" data-search="id 350 · 供应商A 供应商A / 人员1 手部与物体-双手动作协调" data-class="DCE" data-records="99">
+          <td class="rank-cell">8</td>
+          <td class="org-cell"><strong>ID 350 · 供应商A</strong><small>供应商A / 人员1</small></td>
+          <td><b>99</b><small>3.9% of failed records</small></td>
+          <td><b>104</b><small>3.7% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:61.54%"></span><span class="stack-pce" style="width:8.65%"></span><span class="stack-cce" style="width:29.81%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 64</span><span class="class-pill pce" title="流程 / 项目错误">PCE 9</span><span class="class-pill cce" title="合规 / 安全红线">CCE 31</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="手部与物体-双手动作协调">手部与物体-双手动作协调 <b>25</b></span><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>25</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>9</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>先做头环 / 机位试拍，保证双手持续可见。</td>
+        </tr>
+<tr class="risk-row" data-search="id 415 · 用户053777 用户053777 / 供应商E-人员5 场景与画面-内容合规-他人" data-class="CCE" data-records="82">
+          <td class="rank-cell">9</td>
+          <td class="org-cell"><strong>ID 415 · 用户053777</strong><small>用户053777 / 供应商E-人员5</small></td>
+          <td><b>82</b><small>3.2% of failed records</small></td>
+          <td><b>88</b><small>3.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:15.91%"></span><span class="stack-pce" style="width:28.41%"></span><span class="stack-cce" style="width:55.68%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 14</span><span class="class-pill pce" title="流程 / 项目错误">PCE 25</span><span class="class-pill cce" title="合规 / 安全红线">CCE 49</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>48</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>23</b></span><span class="reason-mini" title="任务与交互-生产价值">任务与交互-生产价值 <b>5</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="risk-row" data-search="id 373 · 供应商I-人员3 供应商I-人员3 场景与画面-内容合规-他人" data-class="CCE" data-records="31">
+          <td class="rank-cell">10</td>
+          <td class="org-cell"><strong>ID 373 · 供应商I-人员3</strong><small>供应商I-人员3</small></td>
+          <td><b>31</b><small>1.2% of failed records</small></td>
+          <td><b>32</b><small>1.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:25.00%"></span><span class="stack-pce" style="width:15.62%"></span><span class="stack-cce" style="width:59.38%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 8</span><span class="class-pill pce" title="流程 / 项目错误">PCE 5</span><span class="class-pill cce" title="合规 / 安全红线">CCE 19</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>19</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>3</b></span><span class="reason-mini" title="任务与交互-重复动作时长">任务与交互-重复动作时长 <b>2</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="risk-row" data-search="id 424 · 用户333018 用户333018 / 供应商E人员6 场景与画面-内容合规-他人" data-class="CCE" data-records="15">
+          <td class="rank-cell">11</td>
+          <td class="org-cell"><strong>ID 424 · 用户333018</strong><small>用户333018 / 供应商E人员6</small></td>
+          <td><b>15</b><small>0.6% of failed records</small></td>
+          <td><b>17</b><small>0.6% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:5.88%"></span><span class="stack-pce" style="width:0.00%"></span><span class="stack-cce" style="width:94.12%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 1</span><span class="class-pill pce" title="流程 / 项目错误">PCE 0</span><span class="class-pill cce" title="合规 / 安全红线">CCE 16</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>15</b></span><span class="reason-mini" title="任务与交互-任务意图明确">任务与交互-任务意图明确 <b>1</b></span><span class="reason-mini" title="场景与画面-内容合规-敏感信息">场景与画面-内容合规-敏感信息 <b>1</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="risk-row" data-search="id 369 · 用户689908 用户689908 任务与交互-生产价值" data-class="CCE" data-records="13">
+          <td class="rank-cell">12</td>
+          <td class="org-cell"><strong>ID 369 · 用户689908</strong><small>用户689908</small></td>
+          <td><b>13</b><small>0.5% of failed records</small></td>
+          <td><b>14</b><small>0.5% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:35.71%"></span><span class="stack-pce" style="width:28.57%"></span><span class="stack-cce" style="width:35.71%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 5</span><span class="class-pill pce" title="流程 / 项目错误">PCE 4</span><span class="class-pill cce" title="合规 / 安全红线">CCE 5</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="任务与交互-生产价值">任务与交互-生产价值 <b>5</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>3</b></span><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>3</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>清理娱乐性动作，先明确真实任务与完成结果。</td>
+        </tr>
+<tr class="" data-search="id 636 · 供应商H 供应商H 场景与画面-视角与画幅" data-class="DCE" data-records="10">
+          <td class="rank-cell">13</td>
+          <td class="org-cell"><strong>ID 636 · 供应商H</strong><small>供应商H</small></td>
+          <td><b>10</b><small>0.4% of failed records</small></td>
+          <td><b>12</b><small>0.4% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:75.00%"></span><span class="stack-pce" style="width:16.67%"></span><span class="stack-cce" style="width:8.33%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 9</span><span class="class-pill pce" title="流程 / 项目错误">PCE 2</span><span class="class-pill cce" title="合规 / 安全红线">CCE 1</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-视角与画幅">场景与画面-视角与画幅 <b>9</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>2</b></span><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>1</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>按该组织 TOP3 问题定向复训，复采前做抽样复核。</td>
+        </tr>
+<tr class="risk-row" data-search="id 619 · 供应商B 供应商B 任务与交互-任务类型与时长" data-class="PCE" data-records="7">
+          <td class="rank-cell">14</td>
+          <td class="org-cell"><strong>ID 619 · 供应商B</strong><small>供应商B</small></td>
+          <td><b>7</b><small>0.3% of failed records</small></td>
+          <td><b>7</b><small>0.3% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:14.29%"></span><span class="stack-pce" style="width:42.86%"></span><span class="stack-cce" style="width:42.86%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 1</span><span class="class-pill pce" title="流程 / 项目错误">PCE 3</span><span class="class-pill cce" title="合规 / 安全红线">CCE 3</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>3</b></span><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>2</b></span><span class="reason-mini" title="场景与画面-内容合规-敏感信息">场景与画面-内容合规-敏感信息 <b>1</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-pce"></span>收紧任务卡：单程 40 秒–12 分钟，长程 2–20 分钟。</td>
+        </tr>
+<tr class="" data-search="id 397 · 供应商D-人员4 供应商D-人员4 场景与画面-内容合规-他人" data-class="DCE" data-records="6">
+          <td class="rank-cell">15</td>
+          <td class="org-cell"><strong>ID 397 · 供应商D-人员4</strong><small>供应商D-人员4</small></td>
+          <td><b>6</b><small>0.2% of failed records</small></td>
+          <td><b>6</b><small>0.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:50.00%"></span><span class="stack-pce" style="width:16.67%"></span><span class="stack-cce" style="width:33.33%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 3</span><span class="class-pill pce" title="流程 / 项目错误">PCE 1</span><span class="class-pill cce" title="合规 / 安全红线">CCE 2</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>2</b></span><span class="reason-mini" title="场景与画面-画面稳定性">场景与画面-画面稳定性 <b>2</b></span><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>1</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr>
+<tr class="" data-search="id 319 · 用户813704 用户813704 任务与交互-任务类型与时长" data-class="DCE" data-records="5">
+          <td class="rank-cell">16</td>
+          <td class="org-cell"><strong>ID 319 · 用户813704</strong><small>用户813704</small></td>
+          <td><b>5</b><small>0.2% of failed records</small></td>
+          <td><b>6</b><small>0.2% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:66.67%"></span><span class="stack-pce" style="width:33.33%"></span><span class="stack-cce" style="width:0.00%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 4</span><span class="class-pill pce" title="流程 / 项目错误">PCE 2</span><span class="class-pill cce" title="合规 / 安全红线">CCE 0</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="任务与交互-任务类型与时长">任务与交互-任务类型与时长 <b>1</b></span><span class="reason-mini" title="场景与画面-场景类型">场景与画面-场景类型 <b>1</b></span><span class="reason-mini" title="任务与交互-物理交互">任务与交互-物理交互 <b>1</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-dce"></span>收紧任务卡：单程 40 秒–12 分钟，长程 2–20 分钟。</td>
+        </tr>
+<tr class="risk-row" data-search="id 380 · 用户610827 用户610827 场景与画面-内容合规-他人" data-class="CCE" data-records="1">
+          <td class="rank-cell">17</td>
+          <td class="org-cell"><strong>ID 380 · 用户610827</strong><small>用户610827</small></td>
+          <td><b>1</b><small>0.0% of failed records</small></td>
+          <td><b>1</b><small>0.0% of issue items</small></td>
+          <td><div class="class-stack" aria-label="DCE PCE CCE issue mix"><span class="stack-dce" style="width:0.00%"></span><span class="stack-pce" style="width:0.00%"></span><span class="stack-cce" style="width:100.00%"></span></div><span class="class-pill dce" title="数据内容错误">DCE 0</span><span class="class-pill pce" title="流程 / 项目错误">PCE 0</span><span class="class-pill cce" title="合规 / 安全红线">CCE 1</span></td>
+          <td class="reasons-cell"><span class="reason-mini" title="场景与画面-内容合规-他人">场景与画面-内容合规-他人 <b>1</b></span></td>
+          <td class="action-cell"><span class="priority-dot dot-cce"></span>先清场：排除他人手脚、脚趾和倒影入镜。</td>
+        </tr></tbody></table></div><div class="no-org-results" id="noOrgResults">没有匹配的组织，请换一个关键词或切回“全部”。</div><div class="source-line" id="orgResultCount">显示 17 / 17 个组织</div></div>
+      </section>
+
+      <section id="method">
+        <div class="section-head"><div><div class="section-kicker">03 / 口径与行动</div><h2>怎么读这份结果？</h2></div><p class="section-note">组织维度只拿到了不通过明细，因此本页不把不通过条数误读成组织不通过率。</p></div>
+        <div class="method-grid">
+          <article class="method-card"><h3>DCE · 数据内容错误</h3><p>双手协调、生产价值、任务意图、重复动作、画面视角 / 亮度 / 稳定性等，优先通过采集员动作、机位和试拍训练修正。</p></article>
+          <article class="method-card"><h3>PCE · 流程 / 项目错误</h3><p>任务类型与时长、场景 / 环境 / 标题打标、未填写原因等，优先通过任务卡、打标培训和 QC 记录流程修正。</p></article>
+          <article class="method-card"><h3>CCE · 合规 / 安全红线</h3><p>他人身体部位、敏感信息、碰水等风险，必须先隔离，不按普通质量问题容错；录前清场和抽检要前置。</p></article>
+        </div>
+        <div class="source-line">统计口径：组织归并键 = 上级用户 ID；同一 ID 下不同昵称合并展示；不通过记录 = 明细行数；问题项 = “不通过原因”按分号拆分后的次数；源文件：质检报表_当前条件_20260812_20260830.csv。</div>
+      </section>
+    </main>
+
+    <footer><span>组织质检不通过分析 · 2026/08/12–2026/08/30</span><span>建议先做 CCE 隔离，再按组织 TOP3 问题定向整改。</span></footer>
+  </main>
+  <script>
+    const rows = [...document.querySelectorAll('#orgTable tbody tr')];
+    const search = document.querySelector('#orgSearch');
+    const chips = [...document.querySelectorAll('[data-class-filter]')];
+    const empty = document.querySelector('#noOrgResults');
+    const count = document.querySelector('#orgResultCount');
+    let classFilter = 'all';
+    function applyOrgFilter() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      rows.forEach(row => {
+        const textMatch = !query || row.dataset.search.includes(query);
+        const classMatch = classFilter === 'all' || row.dataset.class.includes(classFilter);
+        const show = textMatch && classMatch;
+        row.style.display = show ? '' : 'none';
+        if (show) visible += 1;
+      });
+      count.textContent = `显示 ${visible} / 17 个组织`;
+      empty.classList.toggle('show', visible === 0);
+    }
+    search.addEventListener('input', applyOrgFilter);
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      classFilter = chip.dataset.classFilter;
+      chips.forEach(item => item.classList.toggle('active', item === chip));
+      applyOrgFilter();
+    }));
+    document.querySelector('#printBtn').addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
