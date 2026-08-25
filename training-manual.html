@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="供应商管理与 EGO 采集员培训 Q&A 知识库手册，共 42 条高频问答。">
+  <meta name="robots" content="noindex, nofollow">
+  <title>供应商管理 Q&A｜采集员培训手册 v1.0</title>
+  <style>
+    :root {
+      --ink: #172536;
+      --muted: #617083;
+      --paper: #f5f7fa;
+      --white: #ffffff;
+      --line: #d8e1ea;
+      --blue: #1261c9;
+      --blue-deep: #0e3e78;
+      --teal: #087f7a;
+      --green: #16865a;
+      --green-bg: #e9f7ef;
+      --amber: #a85f00;
+      --amber-bg: #fff4dd;
+      --red: #b6323d;
+      --red-bg: #fff0f1;
+      --purple: #6852c7;
+      --purple-bg: #f1efff;
+      --shadow: 0 14px 36px rgba(26, 49, 74, .09);
+      --radius: 12px;
+      --sans: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+      --display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); line-height: 1.65; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .wrap { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
+
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .topbar-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .02em; }
+    .brand-mark { width: 28px; height: 28px; border: 7px solid var(--blue); border-radius: 50%; position: relative; flex: none; }
+    .brand-mark::after { content: ""; position: absolute; width: 7px; height: 7px; right: -7px; top: 3px; background: var(--amber); border-radius: 50%; }
+    .version { color: var(--muted); font-size: 12px; font-weight: 600; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .top-actions a, .print-btn { border: 1px solid var(--line); background: var(--white); color: var(--blue-deep); border-radius: 8px; padding: 7px 11px; text-decoration: none; font-size: 13px; font-weight: 700; }
+    .print-btn:hover, .top-actions a:hover { border-color: var(--blue); color: var(--blue); }
+
+    .hero { padding: 68px 0 44px; background: var(--white); border-bottom: 1px solid var(--line); }
+    .hero-grid { display: grid; grid-template-columns: 1.28fr .72fr; gap: 42px; align-items: end; }
+    .eyebrow { color: var(--blue); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: 13px 0 18px; font-family: var(--display); font-size: clamp(40px, 6vw, 72px); line-height: 1.04; letter-spacing: 0; }
+    .hero-copy { max-width: 720px; color: var(--muted); font-size: 18px; margin-bottom: 16px; }
+    .hero-copy strong { color: var(--blue-deep); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+    .hero-tag { padding: 4px 9px; border: 1px solid #cfe0f6; border-radius: 999px; color: var(--blue-deep); background: #f2f7ff; font-size: 12px; font-weight: 800; }
+    .gate-card { padding: 24px; border: 2px solid var(--blue); border-radius: var(--radius); background: #f2f7ff; box-shadow: var(--shadow); }
+    .gate-card small { display: block; color: var(--blue-deep); font-weight: 800; margin-bottom: 5px; }
+    .gate-number { color: var(--blue); font-size: 52px; line-height: 1; font-weight: 900; }
+    .gate-card p { margin: 8px 0 0; color: var(--blue-deep); font-weight: 700; }
+    .meta-stack { display: grid; gap: 8px; margin-top: 18px; padding-top: 15px; border-top: 1px solid #cfe0f6; color: var(--muted); font-size: 12px; font-weight: 600; }
+    .meta-stack b { color: var(--blue-deep); }
+
+    .quick-strip { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-top: 0; background: var(--white); }
+    .quick-item { min-height: 102px; padding: 18px; border-right: 1px solid var(--line); }
+    .quick-item:last-child { border-right: 0; }
+    .quick-item b { display: block; color: var(--blue-deep); font-size: 18px; line-height: 1.25; }
+    .quick-item span { display: block; color: var(--muted); font-size: 13px; margin-top: 6px; }
+
+    main { padding: 42px 0 90px; }
+    section { scroll-margin-top: 84px; margin-bottom: 54px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    .section-kicker { color: var(--teal); font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+    h2 { margin-bottom: 4px; font-size: clamp(26px, 4vw, 40px); line-height: 1.15; letter-spacing: 0; }
+    .section-note { max-width: 430px; color: var(--muted); margin-bottom: 0; font-size: 14px; }
+
+    .decision { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .decision-card { padding: 25px; border-radius: var(--radius); min-height: 188px; }
+    .decision-card h3 { margin-bottom: 8px; font-size: 25px; }
+    .decision-card p { margin-bottom: 0; }
+    .decision-card.yes { background: var(--green-bg); border: 1px solid #a7ddbe; }
+    .decision-card.yes h3 { color: var(--green); }
+    .decision-card.warn { background: var(--amber-bg); border: 1px solid #f2d18e; }
+    .decision-card.warn h3 { color: var(--amber); }
+    .decision-card ul { margin: 10px 0 0; padding-left: 20px; }
+    .decision-card li { margin: 4px 0; }
+
+    .step-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .step-card { padding: 20px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 5px 16px rgba(31, 52, 73, .04); }
+    .step-no { display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--white); background: var(--blue); border-radius: 50%; font-weight: 900; }
+    .step-card h3 { margin-bottom: 6px; font-size: 19px; }
+    .step-card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .finder { padding: 22px; background: var(--blue-deep); color: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .finder-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 15px; }
+    .finder h3 { margin-bottom: 4px; font-size: 22px; }
+    .finder p { margin: 0; color: #d7e6f8; font-size: 13px; }
+    .result-count { white-space: nowrap; color: #b9d7f7; font-size: 13px; font-weight: 800; }
+    .search-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .search-input { width: 100%; padding: 12px 14px; border: 1px solid #8eb4de; border-radius: 8px; color: var(--ink); background: var(--white); outline: none; }
+    .search-input:focus { border-color: #8de0cd; box-shadow: 0 0 0 3px rgba(99,214,170,.22); }
+    .clear-btn { padding: 10px 13px; border: 1px solid rgba(255,255,255,.35); border-radius: 8px; color: var(--white); background: rgba(255,255,255,.10); font-weight: 800; }
+    .clear-btn:hover { background: rgba(255,255,255,.18); }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .filter-chip { padding: 5px 10px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; color: #d7e6f8; background: transparent; font-size: 12px; font-weight: 800; }
+    .filter-chip[aria-pressed="true"], .filter-chip:hover { border-color: #9de9d4; color: var(--blue-deep); background: #9de9d4; }
+
+    .directory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin-top: 16px; }
+    .directory-card { min-height: 125px; display: flex; flex-direction: column; justify-content: space-between; padding: 17px; border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: var(--radius); background: var(--white); text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .directory-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .directory-card.tone-red { border-top-color: var(--red); }
+    .directory-card.tone-teal { border-top-color: var(--teal); }
+    .directory-card.tone-amber { border-top-color: var(--amber); }
+    .directory-card.tone-purple { border-top-color: var(--purple); }
+    .directory-card.tone-green { border-top-color: var(--green); }
+    .directory-kicker { color: var(--teal); font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+    .directory-card strong { color: var(--blue-deep); font-size: 17px; line-height: 1.35; }
+    .directory-count { color: var(--muted); font-size: 12px; font-weight: 700; }
+
+    .qa-section.is-hidden { display: none; }
+    .qa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .qa-card { padding: 19px; border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: var(--radius); background: var(--white); box-shadow: 0 5px 16px rgba(31, 52, 73, .04); }
+    .qa-card.tone-red { border-left-color: var(--red); }
+    .qa-card.tone-teal { border-left-color: var(--teal); }
+    .qa-card.tone-amber { border-left-color: var(--amber); }
+    .qa-card.tone-purple { border-left-color: var(--purple); }
+    .qa-card.tone-green { border-left-color: var(--green); }
+    .qa-card.is-hidden { display: none; }
+    .qa-head { display: grid; grid-template-columns: 43px 1fr; gap: 11px; align-items: start; }
+    .qa-no { display: inline-flex; width: 39px; height: 30px; align-items: center; justify-content: center; border-radius: 7px; color: var(--blue); background: #e8f1ff; font-size: 12px; font-weight: 900; letter-spacing: .03em; }
+    .tone-red .qa-no { color: var(--red); background: var(--red-bg); }
+    .tone-teal .qa-no { color: var(--teal); background: #e5f6f4; }
+    .tone-amber .qa-no { color: var(--amber); background: var(--amber-bg); }
+    .tone-purple .qa-no { color: var(--purple); background: var(--purple-bg); }
+    .tone-green .qa-no { color: var(--green); background: var(--green-bg); }
+    .qa-head h3 { margin: 3px 0 0; color: var(--blue-deep); font-size: 17px; line-height: 1.4; }
+    .answer-shell { display: grid; grid-template-columns: 42px 1fr; gap: 11px; margin-top: 15px; padding-top: 13px; border-top: 1px dashed var(--line); }
+    .answer-label { color: var(--teal); font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+    .answer-content { min-width: 0; color: var(--muted); font-size: 14px; line-height: 1.72; }
+    .answer-text { margin: 0; }
+    .marker-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .marker-list li { position: relative; padding-left: 23px; }
+    .marker { position: absolute; left: 0; top: 0; color: var(--blue); font-weight: 900; }
+    .tone-red .marker { color: var(--red); }
+    .tone-teal .marker { color: var(--teal); }
+    .tone-amber .marker { color: var(--amber); }
+    .tone-purple .marker { color: var(--purple); }
+    .tone-green .marker { color: var(--green); }
+
+    .no-results { display: none; margin-top: 13px; padding: 16px; border: 1px dashed #91acd0; border-radius: 8px; color: #d7e6f8; text-align: center; font-size: 14px; }
+    .no-results.show { display: block; }
+    .source-note { margin-top: 18px; padding: 17px 20px; border-left: 4px solid var(--amber); background: var(--amber-bg); color: #704400; border-radius: 0 8px 8px 0; font-size: 13px; }
+
+    footer { padding: 28px 0 42px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+      .qa-grid { grid-template-columns: 1fr; }
+      .step-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 24px, 1160px); }
+      .topbar-inner { min-height: 58px; }
+      .top-actions a { display: none; }
+      .hero { padding: 43px 0 30px; }
+      h1 { font-size: 45px; }
+      .hero-copy { font-size: 16px; }
+      .quick-strip { grid-template-columns: repeat(2, 1fr); }
+      .quick-item:nth-child(odd) { border-right: 1px solid var(--line); }
+      .quick-item:nth-child(even) { border-right: 0; }
+      .quick-item:last-child { grid-column: span 2; border-top: 1px solid var(--line); }
+      .decision, .directory-grid { grid-template-columns: 1fr; }
+      .step-grid { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-note { margin-top: 8px; }
+      .finder-head { display: block; }
+      .result-count { display: block; margin-top: 8px; }
+      .search-row { grid-template-columns: 1fr; }
+      .clear-btn { width: 100%; }
+      .footer-row { display: block; }
+      .footer-row span + span { display: block; margin-top: 7px; }
+    }
+    @media print {
+      .topbar { position: static; }
+      .top-actions, .finder, .print-btn { display: none !important; }
+      body { background: #fff; }
+      .hero { padding-top: 25px; }
+      section { break-inside: avoid; margin-bottom: 28px; }
+      .qa-card { break-inside: avoid; box-shadow: none; }
+      .qa-section.is-hidden, .qa-card.is-hidden { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>供应商管理 Q&A <span class="version">采集员培训手册 v1.0</span></span></div>
+      <div class="top-actions"><a href="#start">怎么使用</a><a href="#finder">问答目录</a><button class="print-btn" type="button" id="printBtn">打印手册</button></div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Supplier enablement / knowledge base</div>
+        <h1>先把规则讲清，<br>再开始采集。</h1>
+        <p class="hero-copy">这是一份从供应商沟通会整理出的高频问答手册：<strong>先查答案，再按同类问题自检；不确定时先暂停，不要用无效素材凑时长。</strong></p>
+        <div class="hero-tags"><span class="hero-tag">家庭场景机器人训练数据</span><span class="hero-tag">供应商 / 渠道商 / 运营负责人</span><span class="hero-tag">按主题查找</span></div>
+      </div>
+      <aside class="gate-card" aria-label="知识库信息">
+        <small>知识库规模</small>
+        <div class="gate-number">42</div>
+        <p>条高频问答<br>覆盖 9 个供应商管理主题</p>
+        <div class="meta-stack"><span><b>生效日期</b>　2026年8月23日</span><span><b>维护方</b>　项目组（崔总 / 佳峰 / 帅）</span></div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="wrap quick-strip" aria-label="五条硬规则">
+    <div class="quick-item"><b>一个人</b><span>画面里不能有他人手脚</span></div>
+    <div class="quick-item"><b>双手清楚</b><span>手腕到指尖持续可判定</span></div>
+    <div class="quick-item"><b>一件事</b><span>一段只做一个明确任务</span></div>
+    <div class="quick-item"><b>时长合规</b><span>按单程 / 长程上限执行</span></div>
+    <div class="quick-item"><b>通过再上传</b><span>QC 不通过的视频不要上传</span></div>
+  </div>
+
+  <main class="wrap">
+    <section id="start">
+      <div class="section-head"><div><div class="section-kicker">00 / 先记住</div><h2>这本手册怎么用？</h2></div><p class="section-note">遇到具体问题，直接在下方搜索关键词；培训和执行有冲突时，以项目组最新通知为准。</p></div>
+      <div class="decision">
+        <article class="decision-card yes"><h3>先做判断</h3><p>任务有明确目的，双手、物品、接触过程和完成结果都能在画面中看清。</p><ul><li>先清场，确认只有采集员一人</li><li>先试录，确认视角、光线和手部位置</li><li>做完自然结束，再停止录制</li></ul></article>
+        <article class="decision-card warn"><h3>遇到不确定</h3><p>不要硬拍、不要凑时长、不要先上传再等后台打回。</p><ul><li>立即暂停，查本手册对应问答</li><li>能调整就调整，仍看不清就换任务</li><li>QC 不通过的数据不上传</li></ul></article>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="section-head"><div><div class="section-kicker">00 / 四步执行</div><h2>照着做，不容易错</h2></div></div>
+      <div class="step-grid">
+        <article class="step-card"><span class="step-no">1</span><h3>查红线</h3><p>先排除他人身体部位、隐私信息、户外和非第一视角等禁止内容。</p></article>
+        <article class="step-card"><span class="step-no">2</span><h3>定任务</h3><p>确认是单程还是长程，明确动作 + 物体，并按合理场景准确打标。</p></article>
+        <article class="step-card"><span class="step-no">3</span><h3>稳画面</h3><p>头环、光线、速度、双手位置和接触点都调到可见，再连续完成任务。</p></article>
+        <article class="step-card"><span class="step-no">4</span><h3>看 QC</h3><p>只上传 QC 通过的视频；不通过就看原因、改采集方式，再重新试录。</p></article>
+      </div>
+    </section>
+
+    <section id="finder">
+      <div class="section-head"><div><div class="section-kicker">INDEX / 按主题查找</div><h2>问答目录</h2></div><p class="section-note">支持按问题、答案关键词搜索；也可以点击主题卡片跳到对应章节。</p></div>
+      <div class="finder">
+        <div class="finder-head"><div><h3>你想查什么？</h3><p>例如：脚趾、时长、打标、重复、头环、上传、保密</p></div><div class="result-count" id="resultCount" aria-live="polite">显示全部 42 条</div></div>
+        <div class="search-row"><input class="search-input" id="searchInput" type="search" placeholder="输入关键词，搜索 Q&A…" autocomplete="off"><button class="clear-btn" id="clearBtn" type="button">清除</button></div>
+        <div class="chip-row" role="group" aria-label="主题筛选"><button class="filter-chip" type="button" data-filter="all" aria-pressed="true">全部主题</button><button class="filter-chip" type="button" data-filter="quality" aria-pressed="false">质检标准与通过率</button><button class="filter-chip" type="button" data-filter="compliance" aria-pressed="false">合规要求（红线项）</button><button class="filter-chip" type="button" data-filter="task" aria-pressed="false">任务定义与时长规范</button><button class="filter-chip" type="button" data-filter="label" aria-pressed="false">打标与标签规范</button><button class="filter-chip" type="button" data-filter="repeat" aria-pressed="false">重复性与泛化性</button><button class="filter-chip" type="button" data-filter="visual" aria-pressed="false">手部与画面要求</button><button class="filter-chip" type="button" data-filter="device" aria-pressed="false">设备与操作</button><button class="filter-chip" type="button" data-filter="scenario" aria-pressed="false">典型场景判定</button><button class="filter-chip" type="button" data-filter="operations" aria-pressed="false">运营与协作</button></div>
+        <div class="no-results" id="noResults">没有找到匹配的问答。换一个关键词，或先点击“全部主题”。</div>
+      </div>
+      <div class="directory-grid"><a class="directory-card tone-blue" href="#quality" data-directory="quality">
+              <span class="directory-kicker">01 / 先理解目标</span>
+              <strong>质检标准与通过率</strong>
+              <span class="directory-count">4 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-red" href="#compliance" data-directory="compliance">
+              <span class="directory-kicker">02 / 红线不碰</span>
+              <strong>合规要求（红线项）</strong>
+              <span class="directory-count">4 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-teal" href="#task" data-directory="task">
+              <span class="directory-kicker">03 / 先把时长做对</span>
+              <strong>任务定义与时长规范</strong>
+              <span class="directory-count">4 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-amber" href="#label" data-directory="label">
+              <span class="directory-kicker">04 / 标签要精确</span>
+              <strong>打标与标签规范</strong>
+              <span class="directory-count">4 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-purple" href="#repeat" data-directory="repeat">
+              <span class="directory-kicker">05 / 不要凑时长</span>
+              <strong>重复性与泛化性</strong>
+              <span class="directory-count">4 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-blue" href="#visual" data-directory="visual">
+              <span class="directory-kicker">06 / 双手要看清</span>
+              <strong>手部与画面要求</strong>
+              <span class="directory-count">5 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-teal" href="#device" data-directory="device">
+              <span class="directory-kicker">07 / 开机前先准备</span>
+              <strong>设备与操作</strong>
+              <span class="directory-count">5 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-green" href="#scenario" data-directory="scenario">
+              <span class="directory-kicker">08 / 先试少量</span>
+              <strong>典型场景判定</strong>
+              <span class="directory-count">7 条问答 <span aria-hidden="true">↗</span></span>
+            </a>
+<a class="directory-card tone-amber" href="#operations" data-directory="operations">
+              <span class="directory-kicker">09 / 按流程协作</span>
+              <strong>运营与协作</strong>
+              <span class="directory-count">5 条问答 <span aria-hidden="true">↗</span></span>
+            </a></div>
+    </section>
+
+
+    <section class="qa-section" id="quality" data-category-section="quality">
+      <div class="section-head">
+        <div><div class="section-kicker">01 / 先理解目标</div><h2>质检标准与通过率</h2></div>
+        <p class="section-note">先知道为什么严格，再把高频不通过原因一次避开。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-blue" id="q1" data-category="quality" data-search="目前的整体质检通过率是多少？目标是多少？ 上线两天半整体通过率约72%，处于爬坡期正常水平。项目短期目标是通过率提升至85%，最终达到90%~95%。">
+            <div class="qa-head">
+              <span class="qa-no">Q01</span>
+              <h3>目前的整体质检通过率是多少？目标是多少？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">上线两天半整体通过率约72%，处于爬坡期正常水平。项目短期目标是通过率提升至85%，最终达到90%~95%。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q2" data-category="quality" data-search="质检不通过的主要原因有哪些？ top10原因依次为：①内容合规（他人手臂、自己脚趾、敏感信息）；②无生产价值（娱乐性动作）；③任务时长不符；④双手协调动作（已优化移除）；⑤任务意图不明确；⑥画面亮度异常；⑦打标场景错误；⑧敏感信息泄露；⑨重复动作时长过长；⑩动作速度过快。">
+            <div class="qa-head">
+              <span class="qa-no">Q02</span>
+              <h3>质检不通过的主要原因有哪些？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">TOP10原因依次为</p><ul class="marker-list"><li><span class="marker">①</span>内容合规（他人手臂、自己脚趾、敏感信息）</li><li><span class="marker">②</span>无生产价值（娱乐性动作）</li><li><span class="marker">③</span>任务时长不符</li><li><span class="marker">④</span>双手协调动作（已优化移除）</li><li><span class="marker">⑤</span>任务意图不明确</li><li><span class="marker">⑥</span>画面亮度异常</li><li><span class="marker">⑦</span>打标场景错误</li><li><span class="marker">⑧</span>敏感信息泄露</li><li><span class="marker">⑨</span>重复动作时长过长</li><li><span class="marker">⑩</span>动作速度过快。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q3" data-category="quality" data-search="质检标准是否已经最终确定？后续会调整吗？ 当前标准基于客户方要求制定，已作为交付和验收依据。前期标准会偏严（&quot;先僵化再优化&quot;），目的是给客户良好第一印象。后续会根据数据产出情况和客户反馈，在质量与效率之间取均衡，适当放宽。">
+            <div class="qa-head">
+              <span class="qa-no">Q03</span>
+              <h3>质检标准是否已经最终确定？后续会调整吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">当前标准基于客户方要求制定，已作为交付和验收依据。前期标准会偏严（&quot;先僵化再优化&quot;），目的是给客户良好第一印象。后续会根据数据产出情况和客户反馈，在质量与效率之间取均衡，适当放宽。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q4" data-category="quality" data-search="质检团队的工作状态如何？ 质检团队二三十人已上线，日均工作时长6.8小时，已超负荷。团队正在加班处理，以尽快反馈结果给供应商。">
+            <div class="qa-head">
+              <span class="qa-no">Q04</span>
+              <h3>质检团队的工作状态如何？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">质检团队二三十人已上线，日均工作时长6.8小时，已超负荷。团队正在加班处理，以尽快反馈结果给供应商。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="compliance" data-category-section="compliance">
+      <div class="section-head">
+        <div><div class="section-kicker">02 / 红线不碰</div><h2>合规要求（红线项）</h2></div>
+        <p class="section-note">脚趾、他人身体部位、敏感信息等一旦入镜，整段数据可能作废。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-red" id="q5" data-category="compliance" data-search="为什么不能露脚趾？穿拖鞋可以吗？ 脚趾在算法模型中极易被误识别为&quot;第三只手&quot;，导致整段视频作废。居家天气热可穿短裤，但必须穿包趾鞋或袜子，确保脚趾不露出。">
+            <div class="qa-head">
+              <span class="qa-no">Q05</span>
+              <h3>为什么不能露脚趾？穿拖鞋可以吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">脚趾在算法模型中极易被误识别为&quot;第三只手&quot;，导致整段视频作废。居家天气热可穿短裤，但必须穿包趾鞋或袜子，确保脚趾不露出。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-red" id="q6" data-category="compliance" data-search="画面中出现了家人的手或脚，会怎样？ 系统会直接终止录制，已录制的十几分钟数据将全部作废。采集时必须确保独处空间，无人经过。">
+            <div class="qa-head">
+              <span class="qa-no">Q06</span>
+              <h3>画面中出现了家人的手或脚，会怎样？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">系统会直接终止录制，已录制的十几分钟数据将全部作废。采集时必须确保独处空间，无人经过。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-red" id="q7" data-category="compliance" data-search="哪些内容属于绝对禁止的？ ①他人身体部位（手、脚、手臂等）；②身份证、房本、短信通知等个人隐私信息；③涉黄、涉暴、涉政、血腥内容；④户外场景采集；⑤非第一视角（如挂脖、旁挂平板播放教学视频等）。">
+            <div class="qa-head">
+              <span class="qa-no">Q07</span>
+              <h3>哪些内容属于绝对禁止的？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><ul class="marker-list"><li><span class="marker">①</span>他人身体部位（手、脚、手臂等）</li><li><span class="marker">②</span>身份证、房本、短信通知等个人隐私信息</li><li><span class="marker">③</span>涉黄、涉暴、涉政、血腥内容</li><li><span class="marker">④</span>户外场景采集</li><li><span class="marker">⑤</span>非第一视角（如挂脖、旁挂平板播放教学视频等）。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-red" id="q8" data-category="compliance" data-search="敏感信息具体指什么？ 包括但不限于身份证号、房产证、银行卡、手机屏幕通知、聊天记录、门牌号等任何可识别个人身份的信息。">
+            <div class="qa-head">
+              <span class="qa-no">Q08</span>
+              <h3>敏感信息具体指什么？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">包括但不限于身份证号、房产证、银行卡、手机屏幕通知、聊天记录、门牌号等任何可识别个人身份的信息。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="task" data-category-section="task">
+      <div class="section-head">
+        <div><div class="section-kicker">03 / 先把时长做对</div><h2>任务定义与时长规范</h2></div>
+        <p class="section-note">单程与长程有不同上限，系统强制停止不等于建议拍满。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-teal" id="q9" data-category="task" data-search="单程任务和长程任务的区别是什么？ 单程任务是一个独立完整动作（如&quot;洗土豆&quot;），时长40秒~12分钟。长程任务是多个有逻辑关联的连贯动作（如&quot;做晚饭=洗菜→切菜→炒菜&quot;），时长2分钟~20分钟。">
+            <div class="qa-head">
+              <span class="qa-no">Q09</span>
+              <h3>单程任务和长程任务的区别是什么？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">单程任务是一个独立完整动作（如&quot;洗土豆&quot;），时长40秒~12分钟。长程任务是多个有逻辑关联的连贯动作（如&quot;做晚饭=洗菜→切菜→炒菜&quot;），时长2分钟~20分钟。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q10" data-category="task" data-search="系统25分钟强制停止是什么意思？ 这是系统层面的防过热保护机制，并非建议采集时长。单程任务请控制在12分钟内，长程任务控制在20分钟内。">
+            <div class="qa-head">
+              <span class="qa-no">Q10</span>
+              <h3>系统25分钟强制停止是什么意思？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">这是系统层面的防过热保护机制，并非建议采集时长。单程任务请控制在12分钟内，长程任务控制在20分钟内。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q11" data-category="task" data-search="一个任务没做完可以暂停再继续吗？ 不建议。任务应尽量一次性完成并做自然结束动作（如将物品归位、摆放整齐），让质检员能明确判断任务已完成。中途匆忙停止会被判定为&quot;完成度不够&quot;。">
+            <div class="qa-head">
+              <span class="qa-no">Q11</span>
+              <h3>一个任务没做完可以暂停再继续吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">不建议。任务应尽量一次性完成并做自然结束动作（如将物品归位、摆放整齐），让质检员能明确判断任务已完成。中途匆忙停止会被判定为&quot;完成度不够&quot;。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q12" data-category="task" data-search="每个家庭账号最多可以采集多少小时？ 每个家庭账号所有任务累计上限为50小时。单个细分任务（如包饺子）建议控制在2~3小时以内。">
+            <div class="qa-head">
+              <span class="qa-no">Q12</span>
+              <h3>每个家庭账号最多可以采集多少小时？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">每个家庭账号所有任务累计上限为50小时。单个细分任务（如包饺子）建议控制在2~3小时以内。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="label" data-category-section="label">
+      <div class="section-head">
+        <div><div class="section-kicker">04 / 标签要精确</div><h2>打标与标签规范</h2></div>
+        <p class="section-note">环境、场景、任务三级信息，要与实际动作和场景逻辑一致。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-amber" id="q13" data-category="label" data-search="打标的三级结构是什么？分别怎么填？ ①环境（下拉菜单）：选&quot;居家&quot;；②场景（下拉菜单）：按实际地点选卧室/厨房/客厅/卫生间等，不要选&quot;其他&quot;；③任务（手动必填）：具体描述&quot;动作+物体&quot;，如&quot;洗西红柿&quot;&quot;收拾碗筷&quot;。">
+            <div class="qa-head">
+              <span class="qa-no">Q13</span>
+              <h3>打标的三级结构是什么？分别怎么填？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><ul class="marker-list"><li><span class="marker">①</span>环境（下拉菜单）：选&quot;居家&quot;</li><li><span class="marker">②</span>场景（下拉菜单）：按实际地点选卧室/厨房/客厅/卫生间等，不要选&quot;其他&quot;</li><li><span class="marker">③</span>任务（手动必填）：具体描述&quot;动作+物体&quot;，如&quot;洗西红柿&quot;&quot;收拾碗筷&quot;。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q14" data-category="label" data-search="任务描述写&quot;整理桌面&quot;可以吗？ 不可以。&quot;整理桌面&quot;过于泛化，必须写明具体整理什么，如&quot;整理书本&quot;&quot;整理碗筷&quot;&quot;整理灶台&quot;。后续发现仍写泛化描述的会被打回重填。">
+            <div class="qa-head">
+              <span class="qa-no">Q14</span>
+              <h3>任务描述写&quot;整理桌面&quot;可以吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">不可以。&quot;整理桌面&quot;过于泛化，必须写明具体整理什么，如&quot;整理书本&quot;&quot;整理碗筷&quot;&quot;整理灶台&quot;。后续发现仍写泛化描述的会被打回重填。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q15" data-category="label" data-search="实际在阳台包饺子，场景应该选什么？ 场景选&quot;厨房&quot;或&quot;客厅&quot;。原则是：按任务合理性选择场景，而不是按实际物理位置。任务描述必须与实际场景逻辑自洽（如在卧室就别写&quot;洗菜&quot;）。">
+            <div class="qa-head">
+              <span class="qa-no">Q15</span>
+              <h3>实际在阳台包饺子，场景应该选什么？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">场景选&quot;厨房&quot;或&quot;客厅&quot;。原则是：按任务合理性选择场景，而不是按实际物理位置。任务描述必须与实际场景逻辑自洽（如在卧室就别写&quot;洗菜&quot;）。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q16" data-category="label" data-search="环境选居家、场景选其他，但任务写的是卧室里的动作，这样有问题吗？ 有问题。场景明明是卧室却选&quot;其他&quot;，会被判定为打标错误。请务必从下拉菜单中选择准确的场景。">
+            <div class="qa-head">
+              <span class="qa-no">Q16</span>
+              <h3>环境选居家、场景选其他，但任务写的是卧室里的动作，这样有问题吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">有问题。场景明明是卧室却选&quot;其他&quot;，会被判定为打标错误。请务必从下拉菜单中选择准确的场景。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="repeat" data-category-section="repeat">
+      <div class="section-head">
+        <div><div class="section-kicker">05 / 不要凑时长</div><h2>重复性与泛化性</h2></div>
+        <p class="section-note">换背景、换对象、换数量、换天次，让数据真正有泛化价值。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-purple" id="q17" data-category="repeat" data-search="什么是&quot;重复性&quot;？怎么界定？ 同一动作、同一背景、同一物体、完全无变化地反复执行（如每天用同一个杯子、同一块布、同一角度反复擦杯子）。单段视频内重复超过5分钟即会被大模型抓取判定为无效。">
+            <div class="qa-head">
+              <span class="qa-no">Q17</span>
+              <h3>什么是&quot;重复性&quot;？怎么界定？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">同一动作、同一背景、同一物体、完全无变化地反复执行（如每天用同一个杯子、同一块布、同一角度反复擦杯子）。单段视频内重复超过5分钟即会被大模型抓取判定为无效。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-purple" id="q18" data-category="repeat" data-search="包饺子/洗碗/铺床等日常家务，每天都能做吗？ 可以，但需满足：①同一任务总时长控制在2~3小时内；②每天不超过3条；③换背景、换数量、换容器、换角度；④分不同天进行，不要集中在一天内大量上传同类型数据。">
+            <div class="qa-head">
+              <span class="qa-no">Q18</span>
+              <h3>包饺子/洗碗/铺床等日常家务，每天都能做吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">可以，但需满足</p><ul class="marker-list"><li><span class="marker">①</span>同一任务总时长控制在2~3小时内</li><li><span class="marker">②</span>每天不超过3条</li><li><span class="marker">③</span>换背景、换数量、换容器、换角度</li><li><span class="marker">④</span>分不同天进行，不要集中在一天内大量上传同类型数据。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-purple" id="q19" data-category="repeat" data-search="家政阿姨在不同客户家铺床，算重复吗？ 不同家庭（不同背景）不算重复。但如果所有家庭床品颜色/大小一致、摄像头视野差异不大，后台仍可能判定泛化不足。建议控制总时长在2~3小时。">
+            <div class="qa-head">
+              <span class="qa-no">Q19</span>
+              <h3>家政阿姨在不同客户家铺床，算重复吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">不同家庭（不同背景）不算重复。但如果所有家庭床品颜色/大小一致、摄像头视野差异不大，后台仍可能判定泛化不足。建议控制总时长在2~3小时。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-purple" id="q20" data-category="repeat" data-search="后台会通知哪些任务不能再做了吗？ 会的。项目组会每5天左右查看全局数据分布，若某任务（如包饺子）总量已饱和，会提前3~5天通知所有供应商停止该任务，避免浪费工时。">
+            <div class="qa-head">
+              <span class="qa-no">Q20</span>
+              <h3>后台会通知哪些任务不能再做了吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">会的。项目组会每5天左右查看全局数据分布，若某任务（如包饺子）总量已饱和，会提前3~5天通知所有供应商停止该任务，避免浪费工时。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="visual" data-category-section="visual">
+      <div class="section-head">
+        <div><div class="section-kicker">06 / 双手要看清</div><h2>手部与画面要求</h2></div>
+        <p class="section-note">从手腕到指尖、从开始到结果，持续保证画面可判定。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-blue" id="q21" data-category="visual" data-search="双手必须始终在画面中吗？ 是的。双手必须保持出镜，建议始终在肚脐以上位置。走动拿东西时，3秒内将双手放回画面。眼睛始终看着手（手眼同步），可大幅降低手部出框概率。">
+            <div class="qa-head">
+              <span class="qa-no">Q21</span>
+              <h3>双手必须始终在画面中吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">是的。双手必须保持出镜，建议始终在肚脐以上位置。走动拿东西时，3秒内将双手放回画面。眼睛始终看着手（手眼同步），可大幅降低手部出框概率。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q22" data-category="visual" data-search="头环怎么佩戴才正确？ 头环前后带子保持一条直线，不要前翘。佩戴不当会导致视角偏移，手部出框或变形。">
+            <div class="qa-head">
+              <span class="qa-no">Q22</span>
+              <h3>头环怎么佩戴才正确？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">头环前后带子保持一条直线，不要前翘。佩戴不当会导致视角偏移，手部出框或变形。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q23" data-category="visual" data-search="哪些动作容易导致手部被遮挡？ ①长时间握持拖把/扫把（杆子在手后，手指不可见）；②蹲下动作（手伸到低处消失）；③水龙头正对手部；④镂空沥水架遮挡；⑤戴头盔时头环上翘。建议：洗碗时转动水龙头方向；避免蹲下类任务（如刷马桶、铲屎建议坐姿操作）。">
+            <div class="qa-head">
+              <span class="qa-no">Q23</span>
+              <h3>哪些动作容易导致手部被遮挡？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><ul class="marker-list"><li><span class="marker">①</span>长时间握持拖把/扫把（杆子在手后，手指不可见）</li><li><span class="marker">②</span>蹲下动作（手伸到低处消失）</li><li><span class="marker">③</span>水龙头正对手部</li><li><span class="marker">④</span>镂空沥水架遮挡</li><li><span class="marker">⑤</span>戴头盔时头环上翘。建议：洗碗时转动水龙头方向；避免蹲下类任务（如刷马桶、铲屎建议坐姿操作）。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q24" data-category="visual" data-search="动作速度有要求吗？ 不能过快。手速过快会产生残影，模型无法捕捉骨骼关键点。建议比正常速度稍慢，刻意控制手速。">
+            <div class="qa-head">
+              <span class="qa-no">Q24</span>
+              <h3>动作速度有要求吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">不能过快。手速过快会产生残影，模型无法捕捉骨骼关键点。建议比正常速度稍慢，刻意控制手速。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-blue" id="q25" data-category="visual" data-search="画面亮度有什么要求？ 避免强光直射。靠窗采集时左右手亮度差异大会被判定不合格。建议拉上窗帘，确保双手亮度均匀。">
+            <div class="qa-head">
+              <span class="qa-no">Q25</span>
+              <h3>画面亮度有什么要求？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">避免强光直射。靠窗采集时左右手亮度差异大会被判定不合格。建议拉上窗帘，确保双手亮度均匀。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="device" data-category-section="device">
+      <div class="section-head">
+        <div><div class="section-kicker">07 / 开机前先准备</div><h2>设备与操作</h2></div>
+        <p class="section-note">设备、后台应用、光线、头环和试录，逐项确认再开拍。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-teal" id="q26" data-category="device" data-search="手机发热怎么办？ 已通过系统更新解决。采集前请：①关闭所有后台应用；②关闭蓝牙；③单卡手机建议拔掉副卡；④开启飞行模式（上传时再开wifi）；⑤仅保留采集app。系统采集时会自动息屏以降低功耗。">
+            <div class="qa-head">
+              <span class="qa-no">Q26</span>
+              <h3>手机发热怎么办？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">已通过系统更新解决。采集前请</p><ul class="marker-list"><li><span class="marker">①</span>关闭所有后台应用</li><li><span class="marker">②</span>关闭蓝牙</li><li><span class="marker">③</span>单卡手机建议拔掉副卡</li><li><span class="marker">④</span>开启飞行模式（上传时再开WiFi）</li><li><span class="marker">⑤</span>仅保留采集APP。系统采集时会自动息屏以降低功耗。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q27" data-category="device" data-search="qc质检不通过的数据还需要上传吗？ 不需要。 只上传qc状态为&quot;通过&quot;（绿色）的视频。不通过的视频上传后也会被后台打回，浪费双方时间。">
+            <div class="qa-head">
+              <span class="qa-no">Q27</span>
+              <h3>QC质检不通过的数据还需要上传吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">不需要。 只上传QC状态为&quot;通过&quot;（绿色）的视频。不通过的视频上传后也会被后台打回，浪费双方时间。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q28" data-category="device" data-search="需要增加任务时长提醒功能吗？ 项目组已记录该需求（12分钟/20分钟前1~2分钟语音提醒），后续版本评估加入。">
+            <div class="qa-head">
+              <span class="qa-no">Q28</span>
+              <h3>需要增加任务时长提醒功能吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">项目组已记录该需求（12分钟/20分钟前1~2分钟语音提醒），后续版本评估加入。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q29" data-category="device" data-search="采集前需要做什么准备？ ①擦拭摄像头；②检查头环佩戴；③清理后台应用；④确认光线和场景无人无遮挡；⑤试录一段检查视角；⑥阅读&quot;开机前六不准&quot;（六不准文件将单独下发）。">
+            <div class="qa-head">
+              <span class="qa-no">Q29</span>
+              <h3>采集前需要做什么准备？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><ul class="marker-list"><li><span class="marker">①</span>擦拭摄像头</li><li><span class="marker">②</span>检查头环佩戴</li><li><span class="marker">③</span>清理后台应用</li><li><span class="marker">④</span>确认光线和场景无人无遮挡</li><li><span class="marker">⑤</span>试录一段检查视角</li><li><span class="marker">⑥</span>阅读&quot;开机前六不准&quot;（六不准文件将单独下发）。</li></ul></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-teal" id="q30" data-category="device" data-search="采集时边上传边录制会出现上报异常，停止录制？ 1251版本暂时不要边上传视频边录制视频。">
+            <div class="qa-head">
+              <span class="qa-no">Q30</span>
+              <h3>采集时边上传边录制会出现上报异常，停止录制？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">1251版本暂时不要边上传视频边录制视频。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="scenario" data-category-section="scenario">
+      <div class="section-head">
+        <div><div class="section-kicker">08 / 先试少量</div><h2>典型场景判定</h2></div>
+        <p class="section-note">日常任务大多可以做，但要让手、工具、对象和结果都可见。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-green" id="q31" data-category="scenario" data-search="切菜用到菜刀，合规吗？ 合规。正常切菜工具没问题。但注意避免明火、浓烟等影响画面的因素。">
+            <div class="qa-head">
+              <span class="qa-no">Q31</span>
+              <h3>切菜用到菜刀，合规吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">合规。正常切菜工具没问题。但注意避免明火、浓烟等影响画面的因素。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-green" id="q32" data-category="scenario" data-search="宠物相关任务（梳毛、铲屎）可以做吗？ 可以。铲屎、梳毛属于有价值家务。但铲屎时建议坐姿操作，避免蹲下导致手消失；手部尽量全程可见。">
+            <div class="qa-head">
+              <span class="qa-no">Q32</span>
+              <h3>宠物相关任务（梳毛、铲屎）可以做吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">可以。铲屎、梳毛属于有价值家务。但铲屎时建议坐姿操作，避免蹲下导致手消失；手部尽量全程可见。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-green" id="q33" data-category="scenario" data-search="刷鞋/擦鞋/擦桌子，手部会被遮挡吗？ 正常刷鞋、擦桌子是可以的（动作慢、手可见即可）。但长时间握持刷子/抹布导致手指完全不可见时可能不通过。建议多角度操作，让手部交互可见。">
+            <div class="qa-head">
+              <span class="qa-no">Q33</span>
+              <h3>刷鞋/擦鞋/擦桌子，手部会被遮挡吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">正常刷鞋、擦桌子是可以的（动作慢、手可见即可）。但长时间握持刷子/抹布导致手指完全不可见时可能不通过。建议多角度操作，让手部交互可见。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-green" id="q34" data-category="scenario" data-search="组装、拧螺丝类任务可以做吗？ 可以。但避免过于精细导致模型抓不到；调整角度让手和工具交互可见（如横着拧而非垂直拧）；不要一直重复拧同一个螺丝。">
+            <div class="qa-head">
+              <span class="qa-no">Q34</span>
+              <h3>组装、拧螺丝类任务可以做吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">可以。但避免过于精细导致模型抓不到；调整角度让手和工具交互可见（如横着拧而非垂直拧）；不要一直重复拧同一个螺丝。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-green" id="q35" data-category="scenario" data-search="熨衣服/烫衣服属于家居场景吗？ 属于。按单程任务控制时长（40秒~12分钟），动作慢且手部可见即可。">
+            <div class="qa-head">
+              <span class="qa-no">Q35</span>
+              <h3>熨衣服/烫衣服属于家居场景吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">属于。按单程任务控制时长（40秒~12分钟），动作慢且手部可见即可。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-green" id="q36" data-category="scenario" data-search="酒店多房间铺床/叠被子，每个房间算不同场景吗？ 不同房间可视为不同场景，但摄像头视野有限，若床品颜色/大小一致则背景差异不大。建议总时长仍控制在2~3小时内，且尽量选不同户型/不同床型的房间。">
+            <div class="qa-head">
+              <span class="qa-no">Q36</span>
+              <h3>酒店多房间铺床/叠被子，每个房间算不同场景吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">不同房间可视为不同场景，但摄像头视野有限，若床品颜色/大小一致则背景差异不大。建议总时长仍控制在2~3小时内，且尽量选不同户型/不同床型的房间。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-green" id="q37" data-category="scenario" data-search="编织、彩绘、画画类手工可以做吗？ 需判断机器人未来是否会做此类任务。画画可以采集；但编织等精细手工若手部长时间被遮挡则可能不通过。建议先少量试采验证。">
+            <div class="qa-head">
+              <span class="qa-no">Q37</span>
+              <h3>编织、彩绘、画画类手工可以做吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">需判断机器人未来是否会做此类任务。画画可以采集；但编织等精细手工若手部长时间被遮挡则可能不通过。建议先少量试采验证。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <section class="qa-section" id="operations" data-category-section="operations">
+      <div class="section-head">
+        <div><div class="section-kicker">09 / 按流程协作</div><h2>运营与协作</h2></div>
+        <p class="section-note">账号归属、QC上传、固定沟通和保密要求，需要所有参与方同步。</p>
+      </div>
+      <div class="qa-grid">
+
+          <article class="qa-card tone-amber" id="q38" data-category="operations" data-search="供应商如何管理自己的账号和员工？ 在一级账号的&quot;用户信息&quot;中编辑公司名或个人名。这样后台导出数据时能直接看到哪家供应商、哪个员工的数据，便于快速定位质量问题并反馈。">
+            <div class="qa-head">
+              <span class="qa-no">Q38</span>
+              <h3>供应商如何管理自己的账号和员工？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">在一级账号的&quot;用户信息&quot;中编辑公司名或个人名。这样后台导出数据时能直接看到哪家供应商、哪个员工的数据，便于快速定位质量问题并反馈。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q39" data-category="operations" data-search="什么时候能自己查看质检明细？ 约3~5天后，项目组将为每家供应商开通独立质检账号，可自助导出本团队数据及员工明细。">
+            <div class="qa-head">
+              <span class="qa-no">Q39</span>
+              <h3>什么时候能自己查看质检明细？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">约3~5天后，项目组将为每家供应商开通独立质检账号，可自助导出本团队数据及员工明细。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q40" data-category="operations" data-search="每天有沟通会吗？ 即日起，每天下午4:00~5:00为固定沟通时间。各供应商运营负责人可在此时间段与项目组对接，反馈问题并获取最新调整信息。">
+            <div class="qa-head">
+              <span class="qa-no">Q40</span>
+              <h3>每天有沟通会吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">即日起，每天下午4:00~5:00为固定沟通时间。各供应商运营负责人可在此时间段与项目组对接，反馈问题并获取最新调整信息。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q41" data-category="operations" data-search="周五会提供什么支持？ 项目组将用大模型分析后台已通过数据，输出一份建议采集场景列表供参考（非强制），帮助新手快速找到可做的任务方向。">
+            <div class="qa-head">
+              <span class="qa-no">Q41</span>
+              <h3>周五会提供什么支持？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">项目组将用大模型分析后台已通过数据，输出一份建议采集场景列表供参考（非强制），帮助新手快速找到可做的任务方向。</p></div>
+            </div>
+          </article>
+
+          <article class="qa-card tone-amber" id="q42" data-category="operations" data-search="项目有保密要求吗？ 有。所有参与方已签署合同和保密协议，严禁外泄数据、质检标准、任务清单及项目商业信息。">
+            <div class="qa-head">
+              <span class="qa-no">Q42</span>
+              <h3>项目有保密要求吗？</h3>
+            </div>
+            <div class="answer-shell">
+              <span class="answer-label">答案</span>
+              <div class="answer-content"><p class="answer-text">有。所有参与方已签署合同和保密协议，严禁外泄数据、质检标准、任务清单及项目商业信息。</p></div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+    <div class="source-note"><strong>使用说明：</strong>本页内容来源于《知识库Q&A.docx》，按照参考培训页的视觉语言重新编排为单文件 HTML。版本、任务单、质检规则或运营通知发生更新时，请以项目组最新发布内容为准。更新日志：2026-08-24 V1.0 基于8月23日沟通会录音创建</div>
+  </main>
+
+  <footer><div class="wrap footer-row"><span>供应商管理 Q&A · 采集员培训手册 v1.0</span><span>适用：家庭场景机器人训练数据采集项目</span></div></footer>
+
+  <script>
+    const cards = [...document.querySelectorAll('.qa-card')];
+    const sections = [...document.querySelectorAll('.qa-section')];
+    const chips = [...document.querySelectorAll('.filter-chip')];
+    const searchInput = document.querySelector('#searchInput');
+    const resultCount = document.querySelector('#resultCount');
+    const noResults = document.querySelector('#noResults');
+    const clearBtn = document.querySelector('#clearBtn');
+    let activeFilter = 'all';
+
+    function applyFilter() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const categoryMatch = activeFilter === 'all' || card.dataset.category === activeFilter;
+        const queryMatch = !query || card.dataset.search.includes(query);
+        const show = categoryMatch && queryMatch;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visible += 1;
+      });
+      sections.forEach(section => {
+        const hasVisible = [...section.querySelectorAll('.qa-card')].some(card => !card.classList.contains('is-hidden'));
+        section.classList.toggle('is-hidden', !hasVisible);
+      });
+      resultCount.textContent = query || activeFilter !== 'all' ? `显示 ${visible} / 42 条` : `显示全部 42 条`;
+      noResults.classList.toggle('show', visible === 0);
+    }
+
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      activeFilter = chip.dataset.filter;
+      chips.forEach(item => item.setAttribute('aria-pressed', String(item === chip)));
+      applyFilter();
+      if (activeFilter !== 'all') document.querySelector(`#${activeFilter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
+    searchInput.addEventListener('input', applyFilter);
+    clearBtn.addEventListener('click', () => { searchInput.value = ''; activeFilter = 'all'; chips.forEach(item => item.setAttribute('aria-pressed', String(item.dataset.filter === 'all'))); applyFilter(); searchInput.focus(); });
+    document.querySelector('#printBtn').addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
