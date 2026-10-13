@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>润迅机器人 · 品宣规划思维导图 v2</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    background: #ffffff;
+    color: #1f2937;
+    padding: 28px 20px 60px;
+    line-height: 1.6;
+  }
+  .page-head {
+    max-width: 1320px; margin: 0 auto 22px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px;
+    border-bottom: 3px solid #1652f0; padding-bottom: 16px;
+  }
+  .page-head h1 { font-size: 26px; color: #0d1a33; letter-spacing: .5px; }
+  .page-head h1 span { color: #1652f0; }
+  .page-head .sub { font-size: 13px; color: #6b7280; margin-top: 6px; }
+  .page-head .site {
+    display: inline-block; margin-top: 8px; font-size: 12.5px;
+    background: #ffffff; color: #1652f0; border: 1px solid #c7d7ff; border-radius: 20px;
+    padding: 3px 12px; text-decoration: none; font-weight: 600;
+  }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+  .toolbar button {
+    font-family: inherit; font-size: 13px; cursor: pointer;
+    border: 1px solid #cbd5e1; background: #fff; color: #334155;
+    padding: 7px 14px; border-radius: 6px; transition: all .15s;
+  }
+  .toolbar button:hover { border-color: #1652f0; color: #1652f0; }
+  .toolbar button.q4 { border-color: #1652f0; background: #1652f0; color: #fff; }
+  .toolbar button.q4:hover { background: #0d3fc4; color: #fff; }
+
+  .canvas { max-width: 1320px; margin: 0 auto; }
+
+  /* ===== 中心主题 ===== */
+  .root {
+    width: fit-content; margin: 0 auto 24px;
+    background: #ffffff;
+    color: #0d3fc4; padding: 16px 46px; border-radius: 12px;
+    border: 2px solid #1652f0;
+    font-size: 21px; font-weight: 700; letter-spacing: 2px;
+    text-align: center;
+  }
+  .root small { display: block; font-size: 12px; font-weight: 400; letter-spacing: 1px; opacity: .88; margin-top: 4px; color: #64748b; }
+
+  /* ===== Q4 冲刺条 ===== */
+  .q4-bar {
+    max-width: 1320px; margin: 0 auto 26px;
+    background: #ffffff;
+    color: #1f2937; border-radius: 14px; padding: 20px 24px;
+    border: 1px solid #dbe4f0;
+  }
+  .q4-bar .q4-t {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .q4-bar .q4-t .lb {
+    background: #ffffff; color: #c2410c; border: 1px solid #ffd0ab;
+    font-size: 11.5px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; letter-spacing: .5px;
+  }
+  .q4-bar .q4-t h2 { font-size: 18px; letter-spacing: 1px; color: #0d1a33; }
+  .q4-bar .q4-t .rt { margin-left: auto; font-size: 12.5px; color: #94a3b8; }
+  .q4-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+  .q4-item {
+    background: #ffffff; border: 1px solid #e2e8f0;
+    border-top: 3px solid #ff8a3d;
+    border-radius: 10px; padding: 12px 14px;
+  }
+  .q4-item .m { font-size: 11.5px; font-weight: 700; color: #c2410c; letter-spacing: .5px; }
+  .q4-item .n { font-size: 14px; font-weight: 700; margin: 3px 0 7px; color: #0d1a33; }
+  .q4-item ul { list-style: none; }
+  .q4-item li {
+    font-size: 12.5px; color: #4b5563; padding: 2px 0 2px 12px; position: relative;
+  }
+  .q4-item li::before {
+    content: ""; position: absolute; left: 0; top: 9px;
+    width: 5px; height: 5px; border-radius: 50%; background: #ff8a3d;
+  }
+
+  /* ===== 分支网格 ===== */
+  .branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    gap: 18px;
+  }
+  .branch {
+    background: #fff; border-radius: 12px; overflow: hidden;
+    border: 1px solid #e2e8f0;
+    display: flex; flex-direction: column;
+  }
+  .branch-head {
+    padding: 13px 18px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    border-left: 5px solid var(--c, #1652f0);
+    background: #fff;
+    border-bottom: 1px solid #eef2f7;
+    user-select: none;
+  }
+  .branch-head .tag {
+    font-size: 11px; font-weight: 700; color: #fff;
+    background: var(--c, #1652f0);
+    padding: 2px 8px; border-radius: 20px; letter-spacing: .5px;
+    flex-shrink: 0;
+  }
+  .branch-head .ttl { font-size: 16px; font-weight: 700; color: #1f2937; flex: 1; }
+  .branch-head .ttl em { font-style: normal; font-size: 12px; font-weight: 400; color: #64748b; margin-left: 8px; }
+  .branch-head .fold { font-size: 13px; color: #94a3b8; transition: transform .2s; }
+  .branch.collapsed .fold { transform: rotate(-90deg); }
+  .branch-body { padding: 6px 18px 16px; }
+  .branch.collapsed .branch-body { display: none; }
+
+  /* ===== 节点 ===== */
+  .node { margin-top: 14px; }
+  .node-h {
+    font-size: 14px; font-weight: 700; color: var(--c, #1652f0);
+    display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;
+  }
+  .node-h::before {
+    content: ""; width: 7px; height: 7px; border-radius: 2px;
+    background: var(--c, #1652f0); flex-shrink: 0; transform: translateY(-1px);
+  }
+  .node-h .badge {
+    font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px;
+    background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0;
+  }
+  .node-h .badge.done { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+  .node-h .badge.todo { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+  .node-h .badge.q4b { background: #ffe8d6; color: #c2410c; border-color: #ffd0ab; }
+  ul.leaf { list-style: none; padding-left: 15px; }
+  ul.leaf li {
+    font-size: 13px; color: #374151; padding: 3px 0 3px 14px;
+    position: relative; line-height: 1.65;
+  }
+  ul.leaf li::before {
+    content: ""; position: absolute; left: 0; top: 12px;
+    width: 5px; height: 1.5px; background: #cbd5e1;
+  }
+  ul.leaf li b { color: #111827; }
+  ul.leaf li .note { color: #6b7280; font-size: 12px; }
+
+  /* 层级二:子项 */
+  .sub { margin-top: 10px; padding-left: 12px; border-left: 2px dashed #e2e8f0; }
+
+  /* 视频节点高亮 */
+  .video-block {
+    background: #fff; border: 1px solid #e2e8f0; border-left: 3px solid #ff8a3d; border-radius: 9px;
+    padding: 10px 12px; margin-top: 12px;
+  }
+  .video-block .ct { font-size: 12.5px; font-weight: 700; color: #c2410c; margin-bottom: 6px; }
+  .video-block ul.leaf li::before { background: #ffc08a; }
+
+  /* ===== 分支颜色(贴合官网冷静蓝调) ===== */
+  .c1 { --c: #1652f0; --bg: #eef3ff; }
+  .c2 { --c: #0e7490; --bg: #eefafc; }
+  .c3 { --c: #b45309; --bg: #fffaef; }
+  .c4 { --c: #7c3aed; --bg: #f6f3ff; }
+  .c5 { --c: #be123c; --bg: #fff1f3; }
+  .c6 { --c: #1d4ed8; --bg: #eff4ff; }
+  .c7 { --c: #047857; --bg: #effaf5; }
+  .c8 { --c: #475569; --bg: #f5f7fa; }
+
+  .foot-note {
+    max-width: 1320px; margin: 30px auto 0; font-size: 12.5px;
+    color: #64748b; background: #fff; border: 1px dashed #cbd5e1;
+    border-radius: 10px; padding: 14px 18px; line-height: 1.9;
+  }
+  .foot-note b { color: #334155; }
+
+  @media print {
+    body { background: #fff; padding: 10px; }
+    .toolbar { display: none; }
+    .branch { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <div>
+    <h1>润迅机器人 · <span>品宣规划思维导图</span></h1>
+    <div class="sub">V2 · 年底前冲刺版 ｜ 品牌底座已就绪,进入业务物料 + 视频 + 投放落地阶段</div>
+    <a class="site" href="https://cmrobot.ai" target="_blank">cmrobot.ai &nbsp;·&nbsp; 官网风格基准</a>
+  </div>
+  <div class="toolbar">
+    <button class="q4" onclick="document.getElementById('q4bar').scrollIntoView({behavior:'smooth'})">查看四季度冲刺</button>
+    <button onclick="toggleAll(false)">全部展开</button>
+    <button onclick="toggleAll(true)">全部收起</button>
+    <button onclick="window.print()">打印 / 导出PDF</button>
+  </div>
+</div>
+
+<div class="canvas">
+
+  <div class="root">润迅机器人 品宣规划<small>cmrobot.ai — 真实世界数据采集与生产</small></div>
+
+  <!-- ============ 四季度冲刺 ============ -->
+  <div class="q4-bar" id="q4bar">
+    <div class="q4-t">
+      <span class="lb">Q4 冲刺</span>
+      <h2>2026 四季度 · 年底前必须完成的事</h2>
+      <span class="rt">10 月 — 12 月 ｜ 目标:底座成册、物料落地、视频上线、渠道铺开</span>
+    </div>
+    <div class="q4-grid">
+
+      <div class="q4-item">
+        <div class="m">10 月 · 收敛与定标准</div>
+        <div class="n">品牌规范落地</div>
+        <ul>
+          <li>品牌手册(Brand Book)定稿成册</li>
+          <li>LOGO/VI/IP 源文件归档 + 素材云盘开通</li>
+          <li>统一 Slogan、一句话定位、公司简介(50/100/300 字)</li>
+          <li>业务页母版设计打样并确认</li>
+          <li>官网按新 VI 微调核对(风格基准锁定)</li>
+        </ul>
+      </div>
+
+      <div class="q4-item">
+        <div class="m">11 月 · 物料集中产出</div>
+        <div class="n">业务三折页 + 视频</div>
+        <ul>
+          <li>EGO 专业采集:三折页 + 单页定稿</li>
+          <li>iPhone 众包采集:三折页 + 单页定稿</li>
+          <li>印刷下单(展会/客户拜访用量)</li>
+          <li><b>产品使用视频:脚本 + 拍摄 + 剪辑</b></li>
+          <li>宣传 PPT 按新规范升级一版</li>
+        </ul>
+      </div>
+
+      <div class="q4-item">
+        <div class="m">12 月 · 投放与收口</div>
+        <div class="n">上线 + 归档 + 复盘</div>
+        <ul>
+          <li>视频上线(官网/视频号/公众号/展会循环播放)</li>
+          <li>电子物料库上线,销售随手包发全员</li>
+          <li>至少 3 张客户案例卡成稿</li>
+          <li>全年物料台账归档 + 版本归档</li>
+          <li>年度品宣复盘 + 明年内容排期</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="branches">
+
+    <!-- 01 品牌基础层 -->
+    <div class="branch c1">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">01</span>
+        <span class="ttl">品牌基础层<em>已有资产 + 需归档成册</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">已成型资产 <span class="badge done">已完成</span></div>
+          <ul class="leaf">
+            <li><b>LOGO</b> — 主标 + 单色版 + 安全距离规范</li>
+            <li><b>VI 视觉识别系统</b> — 色彩、字体、辅助图形、版式网格</li>
+            <li><b>IP 形象</b> — 机器人 IP 主形象 + 表情/动作延展</li>
+            <li><b>主品牌三折页</b> — 公司整体介绍版</li>
+            <li><b>官网 cmrobot.ai</b> — 已完成,作为 VI 风格基准</li>
+            <li><b>宣传 PPT</b> — 已有版本,需按新规范迭代</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">年底前补齐 <span class="badge q4b">Q4 完成</span></div>
+          <ul class="leaf">
+            <li><b>品牌手册(Brand Book)</b> — 把 LOGO/VI/IP/文案口吻合成一本对外规范,授权给同事与外部供应商</li>
+            <li><b>品牌基础文案库</b> — Slogan、一句话定位、公司简介(50/100/300 字)、产品统一说法</li>
+            <li><b>视觉素材云盘</b> — 源文件(AI/PSD)+ 导出件分层存放,命名规范统一</li>
+            <li><b>IP 使用规则</b> — 什么场合用 IP、什么场合只用 LOGO,避免混用</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 业务产品层 -->
+    <div class="branch c2">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">02</span>
+        <span class="ttl">业务产品层<em>下一阶段主战场</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">两条核心产品线 <span class="badge todo">待制作</span></div>
+          <ul class="leaf">
+            <li><b>EGO 专业采集</b> — 高精度复杂任务;第一视角、多传感器同步、深度与位姿数据 <span class="note">→ 三折页 + 单页</span></li>
+            <li><b>iPhone 众包采集</b> — 规模化长尾场景;低成本、分散人员、真实场景 <span class="note">→ 三折页 + 单页</span></li>
+          </ul>
+          <div class="sub">
+            <ul class="leaf">
+              <li><b>先做母版</b> — 定一套"业务页母版"(封面逻辑、图位、数据位、联系位),两条产品线套用,保证系列感</li>
+              <li><b>每页结构</b> — ①解决什么问题 ②怎么做到(技术亮点) ③参数/规格表 ④典型场景 ⑤案例或数据背书 ⑥联系方式+二维码</li>
+              <li><b>双版本输出</b> — 电子版(PDF/长图,线上发)与印刷版(出血尺寸,展会发)分开出</li>
+            </ul>
+          </div>
+        </div>
+        <div class="node">
+          <div class="node-h">数采业务资产(官网已有,可复用)</div>
+          <ul class="leaf">
+            <li><b>数据背书</b> — 800+ 场景 / 30 万+ 小时 / 2PB 存储 / 50+ SOP</li>
+            <li><b>场景覆盖</b> — 家庭、仓储、零售、工业</li>
+            <li><b>生产流程</b> — 任务定义 → 多产品采集 → 数据处理 → 质量闭环 → 训练资产</li>
+            <li class="note">这些数字与流程可直接搬到三折页,形成"官网—折页"一致口径。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 视频内容层 -->
+    <div class="branch c3">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">03</span>
+        <span class="ttl">视频内容层<em>新增重点</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">产品使用视频 <span class="badge q4b">Q4 制作</span></div>
+          <div class="video-block">
+            <div class="ct">视频类型清单</div>
+            <ul class="leaf">
+              <li><b>产品演示片</b> — EGO / iPhone 采集实拍,展示第一视角任务记录(如叠被)</li>
+              <li><b>公司介绍片</b> — 1.5–3 分钟,官网首屏 + 展会展台循环播放</li>
+              <li><b>操作教程片</b> — 采集 SOP 分步演示,用于内部培训与客户上手</li>
+              <li><b>IP 动画短片</b> — IP 形象动起来,用于社交传播与展会吸引人流</li>
+              <li><b>案例短视频</b> — 标杆项目 30–60 秒,公众号/视频号投放</li>
+            </ul>
+          </div>
+        </div>
+        <div class="node">
+          <div class="node-h">制作流程与规范</div>
+          <ul class="leaf">
+            <li><b>脚本先行</b> — 每个视频先出脚本 + 分镜,确认后开机</li>
+            <li><b>统一片头片尾</b> — 片头 LOGO 动版、片尾联系方式 + 二维码,形成系列识别</li>
+            <li><b>统一字幕与配色</b> — 字幕字体、角标、转场按 VI 执行</li>
+            <li><b>素材归档</b> — 原始素材按"日期_项目_场景"命名存档,便于二次剪辑</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">投放位</div>
+          <ul class="leaf">
+            <li>官网首屏 / 产品详情页内嵌</li>
+            <li>视频号 + 公众号(配合图文推送)</li>
+            <li>展会大屏循环 / 销售拜访时平板即放</li>
+            <li>电子物料库打包,销售随手可发</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 数字阵地层 -->
+    <div class="branch c4">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">04</span>
+        <span class="ttl">数字阵地层<em>官网 + PPT + 公众号</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">官网 cmrobot.ai <span class="badge done">已上线</span></div>
+          <ul class="leaf">
+            <li><b>定位</b> — 真实世界数据采集与生产,风格已定,作为全品类视觉基准</li>
+            <li><b>四季度优化</b> — 补产品详情页、案例页,增挂产品视频</li>
+            <li><b>转化位</b> — "开始合作"表单 + 联系方式,确保留资通畅</li>
+            <li><b>与新物料对齐</b> — 三折页/PPT 的配色与文案口径向官网看齐</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">宣传 PPT <span class="badge todo">Q4 迭代</span></div>
+          <ul class="leaf">
+            <li>按新 VI 升级一版主 PPT(公司介绍 + 解决方案 + 案例)</li>
+            <li>再拆出<b>产品专项 PPT</b>:EGO 版、iPhone 版</li>
+            <li>统一母版:封面、目录、内页网格、结束页</li>
+            <li>配套演讲备注,交给销售与对外演讲者使用</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">自媒体矩阵 <span class="badge todo">待建/待常态化</span></div>
+          <ul class="leaf">
+            <li><b>公众号</b> — 内容常态化输出,承接官网转化</li>
+            <li><b>视频号</b> — 视频内容主阵地,与产品视频联动</li>
+            <li><b>电子画册 / H5</b> — 三折页的线上版,方便转发</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 渠道投放层 -->
+    <div class="branch c5">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">05</span>
+        <span class="ttl">渠道投放层<em>物料做好后往哪投</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">线上渠道</div>
+          <ul class="leaf">
+            <li><b>官网</b> — 产品页/案例页/留资表单,品宣第一落点</li>
+            <li><b>公众号 + 视频号</b> — 图文 + 视频双线输出</li>
+            <li><b>行业媒体 / 垂直平台</b> — 机器人、AI、具身智能类媒体供稿</li>
+            <li><b>电子物料库</b> — 所有折页/视频一键发送,方便销售转发</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">线下渠道</div>
+          <ul class="leaf">
+            <li><b>行业展会</b> — 展台 + 折页 + 视频循环 + IP 立牌组合拳</li>
+            <li><b>客户拜访</b> — 销售随手包:公司页 + 对应业务页 + 视频 + 名片</li>
+            <li><b>行业活动 / 论坛</b> — 演讲 PPT 统一 VI,借势传播</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">对内渠道 <span class="badge todo">易漏</span></div>
+          <ul class="leaf">
+            <li><b>全员物料库</b> — 让每个同事都拿得到、用得对</li>
+            <li><b>销售赋能话术</b> — 物料配话术,不只是给图</li>
+            <li><b>内部统一口径</b> — 公司定位、产品说法一致,避免对外口径混乱</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 对内协同机制 -->
+    <div class="branch c6">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">06</span>
+        <span class="ttl">对内协同机制<em>品宣服务市场的保障</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">需求流转流程</div>
+          <ul class="leaf">
+            <li>业务方提需求 → 品宣排期 → 出稿 → 评审 → 定稿归档</li>
+            <li>设 <b>物料申请单</b>(部门/用途/交期/尺寸),避免口头插单</li>
+            <li>明确 <b>响应时效</b>:标准物料 X 天,新物料 X 天</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">品宣职能定位</div>
+          <ul class="leaf">
+            <li>品宣是<b>服务市场与业务</b>的支撑部门,不是单纯做设计的</li>
+            <li>主动对接业务:先懂产品,再谈物料</li>
+            <li>建立 <b>物料台账</b>:版本、更新日期、责任人</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">评审与迭代</div>
+          <ul class="leaf">
+            <li>物料上线后收集销售/客户反馈,季度迭代一次</li>
+            <li>重要物料做 A/B:不同版本看客户反馈</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 场景与内容包装 -->
+    <div class="branch c7">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">07</span>
+        <span class="ttl">内容与场景层<em>从产品讲到价值</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">按行业场景包装 <span class="badge todo">待补</span></div>
+          <ul class="leaf">
+            <li><b>场景化方案页</b> — 不卖产品卖场景:家庭场景采集、仓储/零售采集、工业采集</li>
+            <li><b>客户案例集</b> — 标杆项目做成 1 页/项目的案例卡,最有说服力</li>
+            <li><b>行业解决方案白皮书</b> — 长内容,用于高价值客户与行业展会</li>
+          </ul>
+        </div>
+        <div class="node">
+          <div class="node-h">内容形式矩阵</div>
+          <ul class="leaf">
+            <li><b>图文</b> — 单页 / 三折页 / 海报 / 展板</li>
+            <li><b>视频</b> — 产品演示 / 公司介绍 / IP 动画 / 案例短片</li>
+            <li><b>数字</b> — 官网、公众号、视频号、电子画册(H5)</li>
+            <li><b>实物</b> — 易拉宝、展台、工服、礼品/IP 周边</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 补充建议 -->
+    <div class="branch c8">
+      <div class="branch-head" onclick="fold(this)">
+        <span class="tag">08</span>
+        <span class="ttl">帮你补齐的关键项<em>别漏了这几点</em></span>
+        <span class="fold">▾</span>
+      </div>
+      <div class="branch-body">
+        <div class="node">
+          <div class="node-h">容易遗漏但很重要 <span class="badge todo">重点</span></div>
+          <ul class="leaf">
+            <li><b>品牌手册</b> — 没有它,业务页做十版就会走样十版</li>
+            <li><b>业务页母版</b> — 比单个产品页更重要,决定系列感与效率</li>
+            <li><b>视频片头/片尾统一</b> — 视频是系列内容,识别度靠统一包装</li>
+            <li><b>案例卡</b> — B 端最有效的品宣内容,建议尽早启动</li>
+            <li><b>电子物料库</b> — 品宣"服务市场"的核心抓手,让销售随时能用</li>
+            <li><b>物料台账与版本管理</b> — 防止新旧版本混用造成对外口径混乱</li>
+            <li><b>官网与物料口径一致</b> — 数据(800+ 场景/30 万+ 小时)全渠道统一</li>
+            <li><b>IP 应用边界</b> — IP 活泼、B 端要专业,需明确使用场合</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot-note">
+    <b>使用说明:</b>点击每个分支标题可展开/收起;顶部按钮可一键查看四季度冲刺、全展开/全收起;点"打印/导出PDF"可保存为 PDF 用于汇报。<br>
+    <b>核心逻辑:</b>官网 cmrobot.ai 已上线并锁定视觉风格 → 品牌手册把"标准"固化 → 业务页母版把"应用"统一 → EGO / iPhone 采集三折页与产品视频批量产出 → 全渠道铺开。<br>
+    <b>四季度主线:</b>10 月定标准(手册 + 母版 + 口径)、11 月集中产出(折页 + 视频 + PPT)、12 月上线收口(视频上线 + 物料库 + 案例 + 复盘)。<br>
+    <b>下一步建议:</b>①确认四季度要做的产品清单与优先级;②先出业务页母版打样;③同步启动产品视频脚本,视频与折页共用素材,一次拍摄多处使用。
+  </div>
+
+</div>
+
+<script>
+function fold(head){
+  head.parentElement.classList.toggle('collapsed');
+}
+function toggleAll(collapse){
+  document.querySelectorAll('.branch').forEach(function(b){
+    b.classList.toggle('collapsed', collapse);
+  });
+}
+</script>
+</body>
+</html>
