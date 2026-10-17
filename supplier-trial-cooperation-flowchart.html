@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>供应商试采合作流程图</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,2 22,12 12,22 2,12' fill='%231E5E66'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#F2F5F6;
+    --card:#FFFFFF;
+    --line:#9FB4BB;
+    --ink:#223039;
+    --ink2:#55666F;
+    --teal:#1E5E66;
+    --teal-fill:#EAF2F3;
+    --pass:#2F7D5C;
+    --pass-fill:#E9F2ED;
+    --fail:#A8653A;
+    --fail-fill:#FBF4EE;
+    --fail-line:#E0BC9E;
+    --stop:#7C8A91;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:30px 18px 60px;}
+
+  header.head{text-align:center;margin-bottom:26px;}
+  header.head h1{font-size:24px;font-weight:700;margin:0;color:var(--teal);letter-spacing:1px;}
+
+  /* 图例 */
+  .legend{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin:14px 0 8px;font-size:13px;color:var(--ink2);}
+  .legend span{display:inline-flex;align-items:center;gap:8px;}
+  .lg-term{width:34px;height:18px;border-radius:999px;background:var(--teal);}
+  .lg-proc{width:30px;height:18px;background:#fff;border:1.5px solid var(--line);}
+  .lg-dec{width:20px;height:20px;background:var(--teal-fill);border:1.5px solid var(--teal);transform:rotate(45deg);}
+  .lg-io{width:32px;height:18px;background:#fff;border:1.5px solid var(--line);transform:skewX(-12deg);}
+
+  /* 主链 */
+  .chain{display:flex;flex-direction:column;align-items:center;position:relative;}
+
+  /* 通用节点 */
+  .node{width:100%;max-width:400px;display:flex;justify-content:center;}
+  .shape{
+    width:100%;text-align:center;padding:14px 22px;
+    border:1.6px solid var(--teal);background:var(--card);color:var(--ink);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .shape h3{margin:0 0 3px;font-size:15px;font-weight:700;}
+  .shape p{margin:0;font-size:13px;color:var(--ink2);}
+
+  /* 起止：椭圆 */
+  .term{
+    max-width:300px;border-radius:999px;background:var(--teal);color:#fff;
+    text-align:center;padding:13px 30px;font-size:16px;font-weight:700;border:none;
+  }
+  .term.ok{background:var(--pass);}
+  .term.no{background:var(--stop);}
+
+  /* 过程：矩形 */
+  .proc{border-radius:2px;}
+
+  /* 输入/输出：平行四边形 */
+  .io{transform:skewX(-10deg);border-color:var(--teal);}
+  .io .inner{transform:skewX(10deg);}
+
+  /* 判断：菱形（SVG 描边，四边完整） */
+  .decision-wrap{width:100%;max-width:400px;display:flex;justify-content:center;position:relative;}
+  .diamond{position:relative;width:300px;height:160px;display:flex;align-items:center;justify-content:center;}
+  .diamond svg{position:absolute;inset:0;width:100%;height:100%;}
+  .diamond .inner{position:relative;z-index:1;max-width:180px;text-align:center;}
+  .diamond h3{margin:0;font-size:15px;font-weight:700;color:var(--teal);}
+  .diamond p{margin:4px 0 0;font-size:12px;color:var(--ink2);}
+
+  /* 连线 */
+  .link{width:2px;height:30px;background:var(--teal);position:relative;}
+  .link::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--teal);}
+  .link.grey{background:var(--stop);}
+  .link.grey::after{border-top-color:var(--stop);}
+
+  /* 出口标签 */
+  .yesno{position:relative;width:100%;max-width:400px;}
+  .yn{position:absolute;font-size:12.5px;font-weight:700;}
+  .yn.yes{color:var(--pass);left:calc(50% - 70px);}
+  .yn.no{color:var(--fail);right:0;}
+
+  /* 否支路（桌面右侧，移动落到下方） */
+  .branch-no{
+    position:absolute;left:calc(50% + 220px);top:0;width:230px;
+    background:var(--fail-fill);border:1.6px dashed var(--fail-line);border-radius:8px;padding:12px 14px;
+  }
+  .branch-no .bt{font-size:13.5px;font-weight:700;color:var(--fail);margin-bottom:6px;}
+  .branch-no ul{margin:0;padding-left:16px;}
+  .branch-no li{font-size:12.5px;color:#6E4A2E;margin:3px 0;}
+  .branch-no .loop{font-size:12px;color:var(--fail);margin-top:7px;}
+  /* 否支路：连线左端接到菱形右顶点，箭头在终点（旁路端）朝右 */
+  .branch-no::before{content:"";position:absolute;right:100%;top:52%;width:74px;border-top:2.2px solid var(--fail);}
+  .branch-no::after{content:"";position:absolute;right:100%;top:52%;transform:translateY(-50%);margin-right:-2px;border:8px solid transparent;border-right-color:var(--fail);}
+
+  /* 终止支路（不达标）内部小步 */
+  .bsteps{display:flex;flex-direction:column;gap:7px;margin-top:6px;}
+  .bstep{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#6E4A2E;}
+  .bstep .d{flex:none;width:6px;height:6px;border-radius:50%;background:var(--fail);margin-top:7px;}
+
+  /* 决策分叉双列（达标 / 终止） */
+  .split{display:flex;gap:34px;width:100%;max-width:720px;justify-content:center;align-items:flex-start;}
+  .split .col{flex:1;max-width:300px;display:flex;flex-direction:column;align-items:center;}
+  .split .col .shape{max-width:100%;}
+  .split .col .term{max-width:100%;width:100%;}
+  .split .col .link{background:var(--pass);height:24px;}
+  .split .col .link::after{border-top-color:var(--pass);border-width:8px;}
+  .split .col .link.grey{background:var(--stop);}
+  .split .col .link.grey::after{border-top-color:var(--stop);}
+  .branch-list{width:100%;background:var(--fail-fill);border:1.6px dashed var(--fail-line);border-radius:8px;padding:12px 14px;}
+  .branch-list .bt{font-size:13.5px;font-weight:700;color:var(--fail);margin-bottom:8px;}
+  .bsteps{display:flex;flex-direction:column;gap:9px;}
+  .bstep{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#6E4A2E;}
+  .bstep .d{flex:none;width:6px;height:6px;border-radius:50%;background:var(--fail);margin-top:7px;}
+
+  footer.note{margin-top:30px;font-size:12.5px;color:var(--ink2);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;}
+  footer.note p{margin:3px 0;}
+
+  @media (max-width:760px){
+    .decision-wrap{flex-direction:column;align-items:center;gap:10px;}
+    .branch-no{position:static;width:100%;max-width:400px;margin:6px 0;}
+    .branch-no::before,.branch-no::after{display:none;}
+    .yn.no{right:auto;left:calc(50% + 30px);}
+    .split{flex-direction:column;align-items:center;gap:22px;}
+    .split .col{max-width:400px;width:100%;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:20px 12px 40px;}
+    .diamond{width:260px;height:150px;}
+    .diamond .inner{max-width:160px;}
+  }
+  @media print{
+    body{background:#fff;}
+    .wrap{max-width:100%;padding:0;}
+    .branch-no,.shape,.diamond{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <h1>供应商试采合作流程图</h1>
+  </header>
+
+  <div class="legend">
+    <span><i class="lg-term"></i>开始 / 结束</span>
+    <span><i class="lg-proc"></i>处理（过程）</span>
+    <span><i class="lg-dec"></i>判断</span>
+    <span><i class="lg-io"></i>输入 / 输出</span>
+  </div>
+
+  <div class="chain">
+
+    <!-- 开始 -->
+    <div class="term">开始 · 供应商发起合作意向</div>
+    <div class="link"></div>
+
+    <!-- 输入：提交资料 -->
+    <div class="node"><div class="shape io"><div class="inner">
+      <h3>提交公司资料及过往案例</h3>
+      <p>营业执照、资质证书、合作案例、产能与规模说明</p>
+    </div></div></div>
+    <div class="link"></div>
+
+    <!-- 判断 D1 -->
+    <div class="decision-wrap">
+      <div class="diamond">
+        <svg viewBox="0 0 300 160" preserveAspectRatio="none"><polygon points="150,3 297,80 150,157 3,80" fill="#EAF2F3" stroke="#1E5E66" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <div class="inner"><h3>资料审核是否通过？</h3></div>
+      </div>
+      <div class="branch-no">
+        <div class="bt">否 · 不通过</div>
+        <ul>
+          <li>一次性告知补正或驳回，书面反馈缺失材料</li>
+          <li>补齐后可重新提交审核</li>
+        </ul>
+        <div class="loop">↩ 回流至「提交公司资料及过往案例」</div>
+      </div>
+    </div>
+    <div class="yesno"><span class="yn yes">是 · 通过 ↓</span><span class="yn no">否 →</span></div>
+    <div class="link"></div>
+
+    <!-- 过程：入库备案 -->
+    <div class="node"><div class="shape proc">
+      <h3>录入供应商库，完成备案</h3>
+      <p>登记供应商信息并建立档案，取得试采申请资格</p>
+    </div></div>
+    <div class="link"></div>
+
+    <!-- 输入：试采申请 -->
+    <div class="node"><div class="shape io"><div class="inner">
+      <h3>提交试采申请</h3>
+      <p>拟申请设备数量、使用场景、试采周期、预期产能</p>
+    </div></div></div>
+    <div class="link"></div>
+
+    <!-- 判断 D2 -->
+    <div class="decision-wrap">
+      <div class="diamond">
+        <svg viewBox="0 0 300 160" preserveAspectRatio="none"><polygon points="150,3 297,80 150,157 3,80" fill="#EAF2F3" stroke="#1E5E66" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <div class="inner"><h3>额度核定是否通过？</h3><p>新供应商初次 ≤5 台；优质老供应商按上次产能规模核定</p></div>
+      </div>
+      <div class="branch-no">
+        <div class="bt">否 · 未通过</div>
+        <ul>
+          <li>超出额度的按意见下调数量后重新提交</li>
+          <li>条件不成熟的暂缓本次试采</li>
+        </ul>
+        <div class="loop">↩ 回流至「提交试采申请」</div>
+      </div>
+    </div>
+    <div class="yesno"><span class="yn yes">是 · 通过 ↓</span><span class="yn no">否 →</span></div>
+    <div class="link"></div>
+
+    <!-- 过程：出具意向函 -->
+    <div class="node"><div class="shape proc">
+      <h3>公司出具合作意向函</h3>
+      <p>设备清单与数量、押金金额、试采周期、数据要求、双方权责</p>
+    </div></div>
+    <div class="link"></div>
+
+    <!-- 过程：盖章 -->
+    <div class="node"><div class="shape proc">
+      <h3>双方盖章确认意向函</h3>
+      <p>意向函经双方盖章后生效，作为试采约定依据</p>
+    </div></div>
+    <div class="link"></div>
+
+    <!-- 输入：付押金 -->
+    <div class="node"><div class="shape io"><div class="inner">
+      <h3>支付设备押金，财务核对到账</h3>
+      <p>按意向函金额支付押金，财务确认到账后安排发运</p>
+    </div></div></div>
+    <div class="link"></div>
+
+    <!-- 过程：发运调试 -->
+    <div class="node"><div class="shape proc">
+      <h3>设备出库发运，签收并安装调试</h3>
+      <p>核对清单后出库发运，签收并完成安装调试，记录设备状态</p>
+    </div></div>
+    <div class="link"></div>
+
+    <!-- 过程：试采 -->
+    <div class="node"><div class="shape proc">
+      <h3>开始试采，按周期报送采集数据</h3>
+      <p>约定周期内开展试采，定期报送采集数据并同步跟踪</p>
+    </div></div>
+    <div class="link"></div>
+
+    <!-- 过程：评估 -->
+    <div class="node"><div class="shape proc">
+      <h3>试采期满，汇总数据综合评估</h3>
+      <p>产能达成、采集质量、交付配合、履约表现等维度</p>
+    </div></div>
+    <div class="link"></div>
+
+    <!-- 判断 D3 -->
+    <div class="decision-wrap">
+      <div class="diamond">
+        <svg viewBox="0 0 300 160" preserveAspectRatio="none"><polygon points="150,3 297,80 150,157 3,80" fill="#EAF2F3" stroke="#1E5E66" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <div class="inner"><h3>试采评估是否达标？</h3></div>
+      </div>
+    </div>
+
+    <!-- 分叉：达标 / 终止 -->
+    <div class="split">
+      <div class="col">
+        <div class="yn yes" style="position:static;margin-bottom:2px;">是 · 达标</div>
+        <div class="link"></div>
+        <div class="shape proc" style="border-color:var(--pass);background:var(--pass-fill);">
+          <h3 style="color:var(--pass);">签订正式合同，转为正式合作</h3>
+          <p>押金按约定转货款或退还，纳入正式供应商管理</p>
+        </div>
+        <div class="link"></div>
+        <div class="term ok">结束 · 转入正式合作</div>
+      </div>
+      <div class="col">
+        <div class="yn no" style="position:static;margin-bottom:2px;">否 · 不达标，终止合作</div>
+        <div class="link grey"></div>
+        <div class="branch-list">
+          <div class="bsteps">
+            <div class="bstep"><span class="d"></span>清点并归还全部试采设备</div>
+            <div class="bstep"><span class="d"></span>设备验收检查，核对完好与损耗情况</div>
+            <div class="bstep"><span class="d"></span>财务核对押金：设备完好全额退还，损坏缺失按意向函约定扣减后退还余款</div>
+          </div>
+        </div>
+        <div class="link grey"></div>
+        <div class="term no">结束 · 终止合作并退还押金</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="note">
+    <p>说明：试采设备数量、押金金额、试采周期与评估维度，以双方盖章的合作意向函及公司供应商管理制度为准；审核与评估结果书面反馈，补正、调整后可按流程重新提交。本图为流程示意。</p>
+  </footer>
+
+</div>
+</body>
+</html>
